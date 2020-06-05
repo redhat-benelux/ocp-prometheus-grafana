@@ -33,7 +33,6 @@ parameters:
   value: 5Gi
 
 
-  
 objects:
 - apiVersion: v1
   kind: ServiceAccount
@@ -141,7 +140,7 @@ objects:
           args:
           - --storage.tsdb.retention=${PROMETHEUS_RETENTION}
           - --config.file=/etc/prometheus/prometheus.yml
-          - --web.listen-address=localhost:9090
+          - --web.listen-address=:9090
           image: ${IMAGE_PROMETHEUS}
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -291,3 +290,4 @@ objects:
                 
 
   
+
