@@ -1,0 +1,16 @@
+{
+"name": "okd",
+"type": "prometheus",
+"typeLogoUrl": "",
+"access": "proxy",
+"url": "https://{prometheus_url}",
+"basicAuth": false,
+"withCredentials": false,
+"jsonData": {
+    "tlsSkipVerify":true,
+    "httpHeaderName1":"Authorization"
+},
+"secureJsonData": {
+    "httpHeaderValue1":"Bearer {service_account_token}"
+}
+}
