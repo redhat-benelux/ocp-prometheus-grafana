@@ -83,9 +83,9 @@ oc new-project app-project2
 
 oc project ${PrometheusNamespace}
 
-oc create configmap prom --from-file=prometheus.yml -n ${PrometheusNamespace}
+oc create configmap prom-config --from-file=prometheus.yml -n ${PrometheusNamespace}
 
-oc create configmap prom-alerts --from-file=alertmanager.yml -n ${PrometheusNamespace}
+oc create configmap alert-config --from-file=alertmanager.yml -n ${PrometheusNamespace}
 
 oc process -f prometheus-standalone.yaml | oc apply -f - -n ${PrometheusNamespace}
 
@@ -94,3 +94,6 @@ oc apply -f rbac.yml -n app-project2
 oc apply -f rbac.yml -n ${PrometheusNamespace}
 
 
+
+
+exit;
