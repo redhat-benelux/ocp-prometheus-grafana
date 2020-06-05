@@ -60,4 +60,5 @@ EOF
 
 oc create secret generic prom-alerts --from-file=alertmanager.yml -n ${PrometheusNamespace}
 
-oc process -f 
+oc process -f prometheus-standalone.yaml | oc apply -f - -n ${PrometheusNamespace}
+
