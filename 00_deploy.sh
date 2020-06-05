@@ -47,9 +47,6 @@ receivers:
 - name: email
   email_configs:
     - to: "rahmed@redhat.com"
-      # TLS configuration.
-      tls_config:
-        insecure_skip_verify: True
 EOF
 
 cat <<EOF >>rbac.yml
