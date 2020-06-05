@@ -114,6 +114,7 @@ PROM_URL="https://${PROM_URL}"
 
 oc process -f grafana.yaml -p NAMESPACE="${PrometheusNamespace}" | oc apply -f - -n ${PrometheusNamespace}
 
+
 export GRAFANA_URL=$(oc get route grafana -n ${PrometheusNamespace} -o 'jsonpath={.status.ingress[0].host}')
 
 GRAFANA_URL="https://${GRAFANA_URL}"

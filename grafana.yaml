@@ -118,7 +118,8 @@ objects:
           - -upstream=http://localhost:3000
           - -provider=openshift
 #          - '-openshift-delegate-urls={"/api/datasources": {"resource": "namespace", "verb": "get", "resourceName": "grafana", "namespace": "${NAMESPACE}"}}'
-          - '-openshift-sar={"namespace": "${NAMESPACE}", "verb": "list", "resource": "services"}'
+#          - '-openshift-sar={"namespace": "${NAMESPACE}", "verb": "list", "resource": "services"}'
+          - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName": "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
           - -tls-cert=/etc/tls/private/tls.crt
           - -tls-key=/etc/tls/private/tls.key
           - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
