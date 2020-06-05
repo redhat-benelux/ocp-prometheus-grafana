@@ -28,6 +28,9 @@ parameters:
 - description: Retention time of Promethes TSDB
   name: PROMETHEUS_RETENTION
   value: 6h
+- description: Volume space available for data, e.g. 512Mi, 2Gi.
+  name: VOLUME_CAPACITY
+  value: 5Gi
 
 
   
@@ -207,7 +210,8 @@ objects:
           secret:
             secretName: prom-tls
         - name: prometheus-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: prometheus-data-pvc
         - name: alertmanager-config
           configMap:
             name: alert-config
@@ -273,5 +277,17 @@ objects:
       targetPort: 9090
     selector:
       app: prom
+
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: prometheus-data-pvc
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY}
+                
 
   
