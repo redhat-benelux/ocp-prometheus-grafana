@@ -1,6 +1,6 @@
 export PrometheusNamespace=prometheus-standalone
 
-cat <<EOF >>prometheus.yml
+cat <<EOF >prometheus.yml
 global:
   scrape_interval: 30s
   evaluation_interval: 5s
@@ -19,11 +19,25 @@ scrape_configs:
           - ${PrometheusNamespace}
           - app-project1
           - app-project2
+
+    - job_name: 'services'
+      honor_labels: false
+      kubernetes_sd_configs:
+      - role: service
+        namespaces:
+          names:
+          - app-project2
+
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_annotation_example_io_should_be_scraped]
+        action: keep
+        regex: true
+
 EOF
 
 
 
-cat <<EOF >>alertmanager.yml
+cat <<EOF >alertmanager.yml
 global:
   resolve_timeout: 5m
   smtp_from: "admin@example.com"
@@ -49,7 +63,7 @@ receivers:
     - to: "rahmed@redhat.com"
 EOF
 
-cat <<EOF >>rbac.yml
+cat <<EOF >rbac.yml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
