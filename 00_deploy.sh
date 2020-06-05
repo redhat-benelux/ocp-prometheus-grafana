@@ -1,11 +1,5 @@
 export PrometheusNamespace=prometheus-standalone
 
-oc new-project ${PrometheusNamespace}
-oc new-project app-project1
-oc new-project app-project2
-
-oc project ${PrometheusNamespace}
-
 cat <<EOF >>prometheus.yml
 global:
   scrape_interval: 30s
@@ -22,12 +16,12 @@ scrape_configs:
         role: endpoints
         namespaces:
           names:
-          - prometheus-project
+          - ${PrometheusNamespace}
           - app-project1
           - app-project2
 EOF
 
-oc create secret generic prom --from-file=prometheus.yml -n ${PrometheusNamespace}
+
 
 cat <<EOF >>alertmanager.yml
 global:
@@ -58,7 +52,45 @@ receivers:
         insecure_skip_verify: True
 EOF
 
-oc create secret generic prom-alerts --from-file=alertmanager.yml -n ${PrometheusNamespace}
+cat <<EOF >>rbac.yml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prometheus-sd-role
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "services","endpoints","pods" ]
+    verbs: [ "list","get", "watch" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prometheus-sd-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: prometheus-sd-role
+subjects:
+- kind: ServiceAccount
+  name: prom
+  namespace: ${PrometheusNamespace}
+EOF
+
+
+oc new-project ${PrometheusNamespace}
+oc new-project app-project1
+oc new-project app-project2
+
+oc project ${PrometheusNamespace}
+
+oc create configmap prom --from-file=prometheus.yml -n ${PrometheusNamespace}
+
+oc create configmap prom-alerts --from-file=alertmanager.yml -n ${PrometheusNamespace}
 
 oc process -f prometheus-standalone.yaml | oc apply -f - -n ${PrometheusNamespace}
+
+oc apply -f rbac.yml -n app-project1
+oc apply -f rbac.yml -n app-project2
+oc apply -f rbac.yml -n ${PrometheusNamespace}
+
 
