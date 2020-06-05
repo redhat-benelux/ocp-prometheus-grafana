@@ -92,5 +92,11 @@ oc apply -f rbac.yml -n ${PrometheusNamespace}
 
 
 
+# note this is for v4, please change it for v3
+export PROM_URL=$(oc get route prom -n ${PrometheusNamespace} -o 'jsonpath={.status.ingress[0].host}')
+
+PROM_URL="https://${PROM_URL}"
+
+echo ${PROM_URL}
 
 exit;
