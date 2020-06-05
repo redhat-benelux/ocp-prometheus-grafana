@@ -15,7 +15,7 @@ parameters:
   value: docker.io/grafana/grafana:master 
 - description: The location of the proxy image
   name: IMAGE_PROXY
-  value: openshift/oauth-proxy:v1.0.0
+  value: openshift3/oauth-proxy:v3.11
 - description: External URL for the grafana route
   name: ROUTE_URL
   value: ""
@@ -31,9 +31,8 @@ objects:
   kind: ServiceAccount
   metadata:
     name: grafana
-    namespace: "${NAMESPACE}"
     annotations:
-      serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana"}}'
+      serviceaccounts.openshift.io/oauth-redirectreference.grafana: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana"}}'
 - apiVersion: authorization.openshift.io/v1
   kind: ClusterRoleBinding
   metadata:
@@ -55,6 +54,8 @@ objects:
       name: grafana
     tls:
       termination: Reencrypt
+      insecureEdgeTerminationPolicy: Redirect
+
 - apiVersion: v1
   kind: Service
   metadata:
