@@ -10,4 +10,10 @@
 
 This is a quick demo of how to deploy Prometheus, AlertManager & Grafana in a custom Namespace to monitor AMQ Broker
 
-the link:00_deploy.sh[] 
+the link:00_deploy.sh[] will perform the following
+
+. generate the needed Prometheus & alertmanager configuration as yaml file to deploy Prometheus
+. RBAC yaml file to allow prometheus service account to scrap target namespaces.
+. deploy Prometheus
+. deploy Grafana
+. Create a datasource in Grafana for Prometheus
