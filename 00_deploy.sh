@@ -127,6 +127,6 @@ sleep 60
 
 oc exec $(oc get po -n ${PrometheusNamespace} -l app=grafana -o name) -c oauth-proxy -- curl -k -H 'Accept: application/json' -H 'Content-Type: application/json' \
 -d '{"name":"Prometheus","type":"prometheus","url":"http://prometheus.'${PrometheusNamespace}'.svc.cluster.local:9090","access":"proxy","basicAuth":false}' \
--X POST "https://grafana.${PrometheusNamespace}.svc.cluster.local:/api/datasources"
+-X POST "https://grafana.${PrometheusNamespace}.svc.cluster.local/api/datasources"
 
 exit;
