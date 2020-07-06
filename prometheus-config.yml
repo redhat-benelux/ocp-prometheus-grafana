@@ -1,0 +1,32 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 5s
+
+scrape_configs:
+    - job_name: prom-sd
+      scrape_interval: 30s
+      scrape_timeout: 10s
+      metrics_path: /metrics
+      scheme: http
+      kubernetes_sd_configs:
+      - api_server: null
+        role: endpoints
+        namespaces:
+          names:
+          - ${MONITOR_PROJECT}
+          - ${APP_PROJECT_A}
+          - ${APP_PROJECT_B}
+
+    - job_name: 'services'
+      honor_labels: false
+      kubernetes_sd_configs:
+      - role: service
+        namespaces:
+          names:
+          - ${APP_PROJECT_B}
+
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_annotation_${ANNOTATION_SCRAPE_FLAT}]
+        action: keep
+        regex: true
+

@@ -1,10 +1,9 @@
-export PrometheusNamespace=prometheus-standalone
+
+source ./project.env
 
 oc delete -f rbac.yml
-oc delete project ${PrometheusNamespace}
-oc delete project app-project1
-oc delete project app-project2
+oc delete project ${MONITOR_PROJECT}
+oc delete project ${APP_PROJECT_A}
+oc delete project ${APP_PROJECT_B}
 
-rm rbac.yml alertmanager.yml prometheus.yml
 
-exit;
