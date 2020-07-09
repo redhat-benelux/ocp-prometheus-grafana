@@ -1,0 +1,274 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    serviceaccounts.openshift.io/oauth-redirectreference.alerts: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"prom-alerts"}}'
+    serviceaccounts.openshift.io/oauth-redirectreference.prom: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"prom"}}'
+  name: prom
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prometheus-sd-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  - pods
+  verbs:
+  - list
+  - get
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prometheus-sd-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: prometheus-sd-role
+subjects:
+- kind: ServiceAccount
+  name: prom
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prom-alerts-proxy
+stringData:
+  session_secret: ${SESSION_SECRET}=
+---
+apiVersion: v1
+data:
+  session_secret: JHtTRVNTSU9OX1NFQ1JFVH09
+kind: Secret
+metadata:
+  name: prom-proxy-g8k4hh4k8m
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scheme: https
+    prometheus.io/scrape: "true"
+    service.alpha.openshift.io/serving-cert-secret-name: prom-tls
+  labels:
+    name: prom
+  name: prom
+spec:
+  ports:
+  - name: prometheus
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app: prom
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: prom-alerts-tls
+  labels:
+    name: prom-alerts
+  name: prom-alerts
+spec:
+  ports:
+  - name: alerts
+    port: 443
+    protocol: TCP
+    targetPort: 9443
+  selector:
+    app: prom
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prometheus
+  name: prometheus
+spec:
+  ports:
+  - name: prom-direct
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: prom
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: prom
+  name: prom
+spec:
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: prom
+  template:
+    metadata:
+      labels:
+        app: prom
+      name: prom
+    spec:
+      containers:
+      - args:
+        - -provider=openshift
+        - -https-address=:8443
+        - -http-address=
+        - -email-domain=*
+        - -upstream=http://localhost:9090
+        - -client-id=system:serviceaccount:$(NAMESPACE):prom
+        - -openshift-ca=/etc/pki/tls/cert.pem
+        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName":
+          "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
+        - -tls-cert=/etc/tls/private/tls.crt
+        - -tls-key=/etc/tls/private/tls.key
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -cookie-secret-file=/etc/proxy/secrets/session_secret
+        - -skip-auth-regex=^/metrics
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: openshift3/oauth-proxy:v3.11
+        imagePullPolicy: IfNotPresent
+        name: prom-proxy
+        ports:
+        - containerPort: 8443
+          name: web
+        volumeMounts:
+        - mountPath: /etc/tls/private
+          name: prometheus-tls
+        - mountPath: /etc/proxy/secrets
+          name: prometheus-secrets
+        - mountPath: /prometheus
+          name: prometheus-data
+      - args:
+        - --storage.tsdb.retention=${PROMETHEUS_RETENTION}
+        - --config.file=/etc/prometheus/prometheus.yml
+        - --web.listen-address=:9090
+        image: openshift3/prometheus:v3.11
+        imagePullPolicy: IfNotPresent
+        name: prometheus
+        volumeMounts:
+        - mountPath: /etc/prometheus
+          name: prometheus-config
+        - mountPath: /prometheus
+          name: prometheus-data
+      - args:
+        - -provider=openshift
+        - -https-address=:9443
+        - -http-address=
+        - -email-domain=*
+        - -upstream=http://localhost:9099
+        - -client-id=system:serviceaccount:$(NAMESPACE):prom
+        - -openshift-ca=/etc/pki/tls/cert.pem
+        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName":
+          "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
+        - -tls-cert=/etc/tls/private/tls.crt
+        - -tls-key=/etc/tls/private/tls.key
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -cookie-secret-file=/etc/proxy/secrets/session_secret
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: openshift3/oauth-proxy:v3.11
+        imagePullPolicy: IfNotPresent
+        name: alerts-proxy
+        ports:
+        - containerPort: 9443
+          name: web
+        volumeMounts:
+        - mountPath: /etc/tls/private
+          name: alerts-tls
+        - mountPath: /etc/proxy/secrets
+          name: alerts-secrets
+      - args:
+        - --config.file=/etc/alertmanager/alertmanager.yml
+        image: openshift3/prometheus-alertmanager:v3.11
+        imagePullPolicy: IfNotPresent
+        name: alertmanager
+        ports:
+        - containerPort: 9093
+          name: web
+        volumeMounts:
+        - mountPath: /etc/alertmanager
+          name: alertmanager-config
+        - mountPath: /alertmanager
+          name: alertmanager-data
+      restartPolicy: Always
+      serviceAccountName: prom
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: prom-config
+        name: prometheus-config
+      - name: prometheus-secrets
+        secret:
+          secretName: prom-proxy-g8k4hh4k8m
+      - name: prometheus-tls
+        secret:
+          secretName: prom-tls
+      - name: prometheus-data
+        persistentVolumeClaim:
+          claimName: prometheus-data-pvc
+      - configMap:
+          defaultMode: 420
+          name: alert-config
+        name: alertmanager-config
+      - name: alerts-secrets
+        secret:
+          secretName: prom-alerts-proxy
+      - name: alerts-tls
+        secret:
+          secretName: prom-alerts-tls
+      - emptyDir: {}
+        name: alertmanager-data
+  updateStrategy:
+    type: RollingUpdate
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: prom
+spec:
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: Reencrypt
+  to:
+    name: prom
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: prom-alerts
+spec:
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: Reencrypt
+  to:
+    name: prom-alerts
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-data-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${VOLUME_CAPACITY}

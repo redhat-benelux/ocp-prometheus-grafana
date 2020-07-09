@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- prometheus-sa.yaml
+- prometheus-role.yaml
+- prometheus-rolebinding.yaml
+- prometheus-pvc.yaml
+- prometheus-route.yaml
+- prometheus-service.yaml
+- prometheus-direct-service.yaml
+- prometheus-statefulset.yaml
+- alertmanager-route.yaml
+- alertmanager-service.yaml
+secretGenerator:
+- literals:
+  - session_secret="${SESSION_SECRET}="
+  name: prom-proxy
+  type: Opaque
+- literals:
+  - session_secret="${SESSION_SECRET}="
+  name: prom-alerts-proxy
+  type: Opaque
+images:
+- name: alertbuffer
+  newName: openshift3/prometheus-alert-buffer
+  newTag: v3.11
+- name: alertmanager
+  newName: openshift3/prometheus-alertmanager
+  newTag: v3.11
+- name: oauth-proxy
+  newName: openshift3/oauth-proxy
+  newTag: v3.11
+- name: prometheus
+  newName: openshift3/prometheus
+  newTag: v3.11
+commonLabels:
+  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/part-of: monitoring
+  app.kubernetes.io/version: 0.1.0

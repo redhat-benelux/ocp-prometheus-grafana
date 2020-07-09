@@ -235,7 +235,7 @@ objects:
     tls:
       termination: Reencrypt
       insecureEdgeTerminationPolicy: Redirect
-      
+
 - apiVersion: v1
   kind: Service
   metadata:
@@ -252,7 +252,7 @@ objects:
       targetPort: 9443
     selector:
       app: prom
-      
+
 - apiVersion: v1
   kind: Secret
   metadata:
@@ -287,7 +287,7 @@ objects:
     resources:
       requests:
         storage: ${VOLUME_CAPACITY}
-                
 
-  
+
+
 

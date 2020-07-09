@@ -1,0 +1,14 @@
+- job_name: prom-sd
+  scrape_interval: 30s
+  scrape_timeout: 10s
+  metrics_path: /metrics
+  scheme: http
+  kubernetes_sd_configs:
+  - api_server: null
+    role: endpoints
+    namespaces:
+      names:
+      - ${MONITOR_PROJECT}
+      - ${APP_PROJECT_A}
+      - ${APP_PROJECT_B}
+

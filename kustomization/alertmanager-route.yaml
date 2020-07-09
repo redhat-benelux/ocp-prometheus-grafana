@@ -1,0 +1,10 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: prom-alerts
+spec:
+  to:
+    name: prom-alerts
+  tls:
+    termination: Reencrypt
+    insecureEdgeTerminationPolicy: Redirect
