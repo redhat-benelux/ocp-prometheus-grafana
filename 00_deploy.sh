@@ -14,7 +14,6 @@ oc new-project ${APP_PROJECT_B}
 oc project ${MONITOR_PROJECT}
 
 oc create configmap prom-config --from-file=prometheus-config.yml  -n ${MONITOR_PROJECT}
-exit
 
 oc create configmap alert-config --from-file=alertmanager-config.yml  -n ${MONITOR_PROJECT}
 
@@ -32,9 +31,9 @@ oc process -f grafana.yaml -p NAMESPACE="${MONITOR_PROJECT}" | oc apply -f - -n 
 
 GRAFANA_URL=$(oc get route grafana -n ${MONITOR_PROJECT} -o 'jsonpath={"https://"}{.status.ingress[0].host}')
 
-echo "Prometheus : https://${PROM_URL}"
+echo "Prometheus : ${PROM_URL}"
 
-echo "Grafana : https://${GRAFANA_URL}"
+echo "Grafana : ${GRAFANA_URL}"
 
 sleep 60 
 
