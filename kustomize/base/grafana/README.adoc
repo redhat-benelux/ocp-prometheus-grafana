@@ -1,0 +1,36 @@
+
+= README
+
+This is work in progress
+
+== Variable expansion
+For now, it is using a Grafana v7.1+ because of ENV var expansion.
+
+Only available in Grafana 7.1+.
+
+
+== UserInfo
+The OAuth server provided by OpenShift is an OAuth2 server.
+If you need really the UserInfo then go for a complete OIDC implementation like Keycloak
+
+
+== NAME_SPACE
+The used namespace is set via env variables through the deployment.yaml.
+
+== NAME_SPACE_ROUTE
+That is the issuer for the OAuth server
+
+[source]
+----
+  oc run --rm -i -t box --image=registry.redhat.io/ubi8-minimal --restart=Never -- curl https://openshift.default.svc/.well-known/oauth-authorization-server --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+----
+
+Returns a JSON file with the provided endpoints. Please use the field 'issuer' as NAME_SPACE_ROUTE
+
+
+== Deploy
+
+oc apply -k . -n probeer3
+
+
+

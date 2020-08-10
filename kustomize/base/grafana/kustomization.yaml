@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: grafana
+
+resources:
+- grafana-deployment.yaml
+- grafana-svc.yaml
+- grafana-sa.yaml
+- grafana-route.yaml
+- grafana-direct-svc.yaml
+- grafana-data-pvc.yaml
+
+configMapGenerator:
+- files:
+  - grafana.ini
+  name: grafana-config
+secretGenerator:
+- literals:
+  - session_secret=TODO-GENERATE
+  name: grafana-proxy
+  type: Opaque
+- files:
+  - datasources.yaml=datasources.json
+  name: grafana-datasources
+  type: Opaque
