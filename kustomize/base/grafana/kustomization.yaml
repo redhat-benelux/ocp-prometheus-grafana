@@ -28,4 +28,7 @@ secretGenerator:
 images:
   - name: oauth-proxy-image
     newName: openshift3/oauth-proxy
-    newTag: latest
+    newTag: v3.11
+  - name: grafana-image
+    newName: grafana/grafana
+    newTag: 7.1.3
