@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: prometheus
+  app.kubernetes.io/name: prometheus
+  app.kubernetes.io/part-of: app-monitoring
+  app.kubernetes.io/managed-by: kustomize
+
+
+images:
+  - name: prometheus-image
+    newName: prom/prometheus
+    newTag: v2.20.1
+  - name: oauth-proxy-image
+    newName: openshift3/oauth-proxy
+    newTag: v3.11
+  - name: alertmanager-image
+    newName: prom/alertmanager
+    newTag: v0.21.0
+
+resources:
+  - prometheus-sa.yaml
+  - prometheus-route.yaml
+  - prometheus-svc.yaml
+  - prometheus-direct-svc.yaml
+  - prometheus-data-pvc.yaml
+  - alertmanager-svc.yaml
+  - alertmanager-route.yaml
+  - alertmanager-data-pvc.yaml
+  - prometheus-deployment.yaml
+
+
+secretGenerator:
+  - literals:
+      - session_secret=TODO-GENERATE
+    name: prometheus-proxy-secret
+    type: Opaque
+  - literals:
+      - session_secret=TODO-GENERATE
+    name: alertmanager-proxy-secret
+    type: Opaque
+
+configMapGenerator:
+  - files:
+      - alertmanager.yml=alertmanager-config.yaml
+    name: alertmanager-config
+  - files:
+      - prometheus.yml=prometheus-config.yaml
+    name: prometheus-config

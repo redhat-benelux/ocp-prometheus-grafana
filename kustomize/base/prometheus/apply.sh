@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-kustomize build .
+oc apply -k .
 

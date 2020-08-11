@@ -1,0 +1,165 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: prometheus
+  template:
+    metadata:
+      labels:
+        deployment: prometheus
+    spec:
+      serviceAccountName: prometheus
+      containers:
+        - name: prometheus-proxy
+          image: oauth-proxy-image
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NAME_SPACE_ROUTE
+              value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
+          ports:
+            - containerPort: 8443
+              name: web
+          args:
+            - -provider=openshift
+            - -proxy-prefix=/oauth2
+            - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
+            - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
+            - -openshift-service-account=prometheus
+            - -https-address=:8443
+            - -http-address=
+            - -email-domain=*
+            - -upstream=http://localhost:9090
+            - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName": "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
+            - -tls-cert=/etc/tls/private/tls.crt
+            - -tls-key=/etc/tls/private/tls.key
+            - -cookie-secret-file=/etc/proxy/secrets/session_secret
+          volumeMounts:
+            - mountPath: /etc/tls/private
+              name: prometheus-tls
+            - mountPath: /etc/proxy/secrets
+              name: prometheus-proxy-secret
+
+        - name: prometheus
+          image: prometheus-image
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NAME_SPACE_ROUTE
+              value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - name: grafana-http
+              containerPort: 3000
+          volumeMounts:
+            - mountPath: /etc/prometheus
+              name: prometheus-config
+            - mountPath: /prometheus
+              name: prometheus-data
+
+        # Deploy alertmanager behind an oauth proxy
+        # use http port=4190 and https port=9943 to differ from prom-proxy
+        - name: alertmanager-proxy
+          image: oauth-proxy-image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9443
+              name: web
+              protocol: TCP
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NAME_SPACE_ROUTE
+              value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
+          args:
+            - -provider=openshift
+            - -proxy-prefix=/oauth2
+            - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
+            - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
+            - -openshift-service-account=prometheus
+            - -https-address=:9443
+            - -http-address=
+            - -email-domain=*
+            - -upstream=http://localhost:9093
+            - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName": "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
+            - -tls-cert=/etc/tls/private/tls.crt
+            - -tls-key=/etc/tls/private/tls.key
+            - -cookie-secret-file=/etc/proxy/secrets/session_secret
+          volumeMounts:
+            - mountPath: /etc/tls/private
+              name: alertmanager-tls
+            - mountPath: /etc/proxy/secrets
+              name: alertmanager-proxy-secret
+
+        - name: alertmanager
+          image: alertmanager-image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9093
+              name: web
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/alertmanager
+              name: alertmanager-config
+            - mountPath: /alertmanager
+              name: alertmanager-data
+
+
+
+
+      volumes:
+        - name: prometheus-config
+          configMap:
+            name: prometheus-config
+        - name: prometheus-data
+          persistentVolumeClaim:
+            claimName: prometheus-data-pvc
+        - name: alertmanager-data
+          persistentVolumeClaim:
+            claimName: alertmanager-data-pvc
+        - name: prometheus-tls
+          secret:
+            secretName: prometheus-tls
+        - name: prometheus-proxy-secret
+          secret:
+            secretName: prometheus-proxy-secret
+        - name: alertmanager-tls
+          secret:
+            secretName: alertmanager-tls
+        - name: alertmanager-proxy-secret
+          secret:
+            secretName: alertmanager-proxy-secret
+        - name: alertmanager-config
+          configMap:
+            name: alertmanager-config
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 600
+

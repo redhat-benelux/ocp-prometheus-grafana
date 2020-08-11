@@ -1,0 +1,13 @@
+# Create a fully end-to-end TLS connection to the alert proxy
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: alertmanager
+spec:
+  to:
+    kind: Service
+    name: alertmanager-svc
+    weight: 100
+  tls:
+    termination: Reencrypt
+    insecureEdgeTerminationPolicy: Redirect

@@ -80,6 +80,7 @@ spec:
           ports:
             - name: grafana-http
               containerPort: 3000
+              protocol: TCP
           volumeMounts:
             - name: grafana-storage
               mountPath: /var/lib/grafana

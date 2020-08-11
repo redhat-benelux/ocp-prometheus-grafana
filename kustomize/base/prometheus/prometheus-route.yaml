@@ -1,0 +1,13 @@
+# Create a fully end-to-end TLS connection to the prometheus proxy
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: prometheus
+spec:
+  to:
+    kind: Service
+    name: prometheus
+    weight: 100
+  tls:
+    termination: Reencrypt
+    insecureEdgeTerminationPolicy: Redirect
