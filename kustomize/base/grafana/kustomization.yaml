@@ -24,3 +24,8 @@ secretGenerator:
   - datasources.yaml=datasources.json
   name: grafana-datasources
   type: Opaque
+
+images:
+  - name: oauth-proxy-image
+    newName: openshift3/oauth-proxy
+    newTag: latest

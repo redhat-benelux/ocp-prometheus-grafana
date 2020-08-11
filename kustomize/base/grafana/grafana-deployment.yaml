@@ -15,7 +15,7 @@ spec:
       serviceAccountName: grafana
       containers:
         - name: oauth-proxy
-          image: registry.redhat.io/openshift3/oauth-proxy:v3.11
+          image: oauth-proxy-image
           env:
             - name: NAMESPACE
               valueFrom:
@@ -39,7 +39,7 @@ spec:
             - -proxy-prefix=/grafana/oauth2
             - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
             - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
-            - -skip-auth-regex=^/
+            - -skip-auth-regex=^/BLA
             - -https-address=:8443
             - -http-address=
             - '-email-domain=*'

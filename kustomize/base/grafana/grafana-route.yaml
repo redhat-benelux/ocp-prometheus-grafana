@@ -1,10 +1,12 @@
-kind: Route
 apiVersion: route.openshift.io/v1
+kind: Route
 metadata:
   name: grafana
 spec:
-  to:
-    name: grafana
   tls:
-    termination: Reencrypt
     insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: grafana
+    weight: 100
