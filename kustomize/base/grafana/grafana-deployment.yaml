@@ -36,18 +36,16 @@ spec:
               name: web
           args:
             - -provider=openshift
-            - -proxy-prefix=/grafana/oauth2
+            - -proxy-prefix=/oauth2
             - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
             - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
-            - -skip-auth-regex=^/BLA
             - -https-address=:8443
             - -http-address=
             - '-email-domain=*'
             - -upstream=http://localhost:3000
             - -tls-cert=/etc/tls/private/tls.crt
             - -tls-key=/etc/tls/private/tls.key
-            - -client-id=system:serviceaccount:$(NAMESPACE):grafana
-            - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+            - -openshift-service-account=grafana
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
             - -cookie-refresh=0
             - -cookie-expire=24h0m0s
@@ -64,7 +62,7 @@ spec:
         - name: grafana
           image: grafana-image
           args:
-            - '-config=/etc/grafana/grafana.ini'
+            - -config=/etc/grafana/grafana.ini
           env:
             - name: NAMESPACE
               valueFrom:

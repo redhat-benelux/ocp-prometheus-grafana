@@ -33,4 +33,12 @@ Returns a JSON file with the provided endpoints. Please use the field 'issuer' a
 oc apply -k . -n probeer3
 
 
+== Disable OAuth
+
+Sometimes you need 'admin' access to Grafana
+When you add
+- -skip-auth-regex=^/
+as the args to oauth-proxy
+then ouauth is disabled
+
 
