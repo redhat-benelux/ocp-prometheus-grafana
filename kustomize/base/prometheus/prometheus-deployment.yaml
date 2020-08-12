@@ -99,8 +99,12 @@ spec:
               containerPort: 3000
               protocol: TCP
           volumeMounts:
-            - mountPath: /etc/prometheus
+            - mountPath: /etc/prometheus/prometheus.yml
               name: prometheus-config
+              subPath: prometheus.yml
+            - mountPath: /etc/prometheus/prometheus-rules.yaml
+              name: prometheus-rules
+              subPath: prometheus-rules.yaml
             - mountPath: /prometheus
               name: prometheus-data
 
@@ -181,6 +185,9 @@ spec:
         - name: prometheus-config
           configMap:
             name: prometheus-config
+        - name: prometheus-rules
+          configMap:
+            name: prometheus-rules
         - name: prometheus-tls
           secret:
             secretName: prometheus-tls

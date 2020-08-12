@@ -1,28 +1,21 @@
 global:
-  scrape_interval: 30s
-  evaluation_interval: 5s
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - localhost:9093
+
+
+
+rule_files:
+  - "prometheus-rules.yaml"
+# - "second.rules"
+
 scrape_configs:
-  - job_name: prom-sd
-    scrape_interval: 30s
-    scrape_timeout: 10s
-    metrics_path: /metrics
-    scheme: http
-    kubernetes_sd_configs:
-      - api_server: null
-        role: endpoints
-        namespaces:
-          names:
-            - ${PrometheusNamespace}
-            - app-project1
-            - app-project2
-  - job_name: 'services'
-    honor_labels: false
-    kubernetes_sd_configs:
-      - role: service
-        namespaces:
-          names:
-            - app-project2
-    relabel_configs:
-      - source_labels: [__meta_kubernetes_service_annotation_example_io_should_be_scraped]
-        action: keep
-        regex: true
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']

@@ -47,3 +47,7 @@ configMapGenerator:
   - files:
       - prometheus.yml=prometheus-config.yaml
     name: prometheus-config
+  - files:
+      - prometheus-rules.yaml
+    name: prometheus-rules
+

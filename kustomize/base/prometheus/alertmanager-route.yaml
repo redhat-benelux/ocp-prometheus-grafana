@@ -6,7 +6,7 @@ metadata:
 spec:
   to:
     kind: Service
-    name: alertmanager-svc
+    name: alertmanager
     weight: 100
   tls:
     termination: Reencrypt
