@@ -24,7 +24,7 @@ secretGenerator:
   name: grafana-proxy-secret
   type: Opaque
 - files:
-  - datasources.yaml=datasources.json
+  - grafana-datasources.yaml
   name: grafana-datasources
   type: Opaque
 
