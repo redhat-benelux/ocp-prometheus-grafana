@@ -34,9 +34,27 @@ spec:
           ports:
             - containerPort: 8443
               name: web
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: 8443
+              scheme: HTTPS
+              path: /oauth/healthz
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 8443
+              scheme: HTTPS
+              path: /oauth/healthz
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           args:
             - -provider=openshift
-            - -proxy-prefix=/oauth2
             - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
             - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
             - -openshift-service-account=prometheus
@@ -48,6 +66,12 @@ spec:
             - -tls-cert=/etc/tls/private/tls.crt
             - -tls-key=/etc/tls/private/tls.key
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
+            - -cookie-refresh=0
+            - -cookie-expire=24h0m0s
+            - -cookie-name=_oauth2_prom_bnl
+            - -ssl-insecure-skip-verify=true
+            - -request-logging=true
+            - -skip-auth-regex=^/oauth/healthz
           volumeMounts:
             - mountPath: /etc/tls/private
               name: prometheus-tls
@@ -71,8 +95,9 @@ spec:
               cpu: 100m
               memory: 128Mi
           ports:
-            - name: grafana-http
+            - name: prometheus-http
               containerPort: 3000
+              protocol: TCP
           volumeMounts:
             - mountPath: /etc/prometheus
               name: prometheus-config
@@ -97,7 +122,6 @@ spec:
               value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
           args:
             - -provider=openshift
-            - -proxy-prefix=/oauth2
             - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
             - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
             - -openshift-service-account=prometheus
@@ -109,6 +133,26 @@ spec:
             - -tls-cert=/etc/tls/private/tls.crt
             - -tls-key=/etc/tls/private/tls.key
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
+            - -request-logging=true
+            - -skip-auth-regex=^/oauth/healthz
+          livenessProbe:
+            httpGet:
+              port: 9443
+              scheme: HTTPS
+              path: /oauth/healthz
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 9443
+              scheme: HTTPS
+              path: /oauth/healthz
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           volumeMounts:
             - mountPath: /etc/tls/private
               name: alertmanager-tls
@@ -131,16 +175,12 @@ spec:
 
 
 
+
+
       volumes:
         - name: prometheus-config
           configMap:
             name: prometheus-config
-        - name: prometheus-data
-          persistentVolumeClaim:
-            claimName: prometheus-data-pvc
-        - name: alertmanager-data
-          persistentVolumeClaim:
-            claimName: alertmanager-data-pvc
         - name: prometheus-tls
           secret:
             secretName: prometheus-tls
@@ -156,6 +196,12 @@ spec:
         - name: alertmanager-config
           configMap:
             name: alertmanager-config
+        - name: prometheus-data
+          persistentVolumeClaim:
+            claimName: prometheus-data-pvc
+        - name: alertmanager-data
+          persistentVolumeClaim:
+            claimName: alertmanager-data-pvc
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
   strategy:

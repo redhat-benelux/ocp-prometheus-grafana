@@ -14,7 +14,7 @@ spec:
     spec:
       serviceAccountName: grafana
       containers:
-        - name: oauth-proxy
+        - name: grafana-proxy
           image: oauth-proxy-image
           env:
             - name: NAMESPACE
@@ -34,30 +34,49 @@ spec:
           ports:
             - containerPort: 8443
               name: web
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: 8443
+              scheme: HTTPS
+              path: /oauth/healthz
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 8443
+              scheme: HTTPS
+              path: /oauth/healthz
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           args:
             - -provider=openshift
-            - -proxy-prefix=/oauth2
             - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
             - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
+            - -openshift-service-account=grafana
             - -https-address=:8443
             - -http-address=
-            - '-email-domain=*'
-            - -upstream=http://localhost:3000
+            - -email-domain=*
+            - -upstream=http://localhost:9090
+            - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName": "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
             - -tls-cert=/etc/tls/private/tls.crt
             - -tls-key=/etc/tls/private/tls.key
-            - -openshift-service-account=grafana
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
             - -cookie-refresh=0
             - -cookie-expire=24h0m0s
-            - -cookie-name=_oauth2_graf
+            - -cookie-name=_oauth2_graf_bnl
             - -ssl-insecure-skip-verify=true
             - -request-logging=true
-            - '-openshift-sar={"namespace": "$(NAMESPACE)", "verb": "list", "resource": "services"}'
+            - -skip-auth-regex=^/oauth/healthz
           volumeMounts:
             - mountPath: /etc/tls/private
               name: grafana-tls
             - mountPath: /etc/proxy/secrets
-              name: secrets
+              name: grafana-proxy-secret
 
         - name: grafana
           image: grafana-image
@@ -90,8 +109,9 @@ spec:
               mountPath: /etc/grafana
             - name: grafana-tls
               mountPath: /etc/tls/private
-            - name: secrets
+            - name: grafana-proxy-secret
               mountPath: /etc/proxy/secrets
+
       volumes:
         - name: grafana-config
           configMap:
@@ -99,9 +119,9 @@ spec:
         - name: grafana-datasources
           secret:
             secretName: grafana-datasources
-        - name: secrets
+        - name: grafana-proxy-secret
           secret:
-            secretName: grafana-proxy
+            secretName: grafana-proxy-secret
         - name: grafana-tls
           secret:
             secretName: grafana-tls
@@ -110,9 +130,6 @@ spec:
             claimName: grafana-data-pvc
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
-      dnsPolicy: ClusterFirst
-      securityContext: {}
-      schedulerName: default-scheduler
   strategy:
     type: Recreate
   revisionHistoryLimit: 5

@@ -21,7 +21,7 @@ configMapGenerator:
 secretGenerator:
 - literals:
   - session_secret=TODO-GENERATE
-  name: grafana-proxy
+  name: grafana-proxy-secret
   type: Opaque
 - files:
   - datasources.yaml=datasources.json

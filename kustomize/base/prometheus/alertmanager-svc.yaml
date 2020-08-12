@@ -4,8 +4,8 @@ metadata:
   annotations:
     service.alpha.openshift.io/serving-cert-secret-name: alertmanager-tls
   labels:
-    name: alertmanager-svc
-  name: alertmanager-svc
+    name: alertmanager
+  name: alertmanager
 spec:
   ports:
     - name: alertmanager-https
