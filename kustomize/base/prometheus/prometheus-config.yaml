@@ -27,3 +27,17 @@ scrape_configs:
   - job_name: grafana
     static_configs:
       - targets: ['grafana-metrics:9779']
+
+#  https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
+  - job_name: fuse-endpoints
+    kubernetes_sd_configs:
+    - role: endpoints
+#      namespaces:
+#        names:
+#          - probeer2
+#    relabel_configs:
+#    - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+#      action: keep
+#      regex: true
+#    - action: labelmap
+#      regex: __meta_kubernetes_service_(.+)

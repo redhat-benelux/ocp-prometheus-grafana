@@ -28,6 +28,8 @@ resources:
   - alertmanager-route.yaml
   - alertmanager-data-pvc.yaml
   - prometheus-deployment.yaml
+  - prometheus-role.yaml
+  - prometheus-role-binding.yaml
 
 
 secretGenerator:

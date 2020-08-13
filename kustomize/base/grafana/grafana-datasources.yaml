@@ -14,7 +14,7 @@ datasources:
     type: prometheus
     access: proxy
     editable: false
-    isDefault:
+    isDefault: true
     orgId: 1
     url: 'http://prometheus-direct:9090'
     version: 1
