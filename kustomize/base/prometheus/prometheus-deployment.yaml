@@ -95,9 +95,27 @@ spec:
               cpu: 100m
               memory: 128Mi
           ports:
-            - name: prometheus-http
+            - name: web
               containerPort: 3000
               protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: 9090
+              scheme: HTTP
+              path: /-/healthy
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 9090
+              scheme: HTTP
+              path: /-/ready
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           volumeMounts:
             - mountPath: /etc/prometheus/prometheus.yml
               name: prometheus-config
@@ -139,6 +157,13 @@ spec:
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
             - -request-logging=true
             - -skip-auth-regex=^/oauth/healthz
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
           livenessProbe:
             httpGet:
               port: 9443
@@ -170,6 +195,31 @@ spec:
             - containerPort: 9093
               name: web
               protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              port: 9093
+              scheme: HTTP
+              path: /-/healthy
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 9093
+              scheme: HTTP
+              path: /-/ready
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           volumeMounts:
             - mountPath: /etc/alertmanager
               name: alertmanager-config
