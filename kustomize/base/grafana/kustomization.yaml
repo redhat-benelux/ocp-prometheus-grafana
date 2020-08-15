@@ -19,8 +19,9 @@ configMapGenerator:
   - grafana.ini
   name: grafana-config
 secretGenerator:
+#  python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
 - literals:
-  - session_secret=TODO-GENERATE
+  - session_secret=vtmFnAI5UgevynW+45kQmg==
   name: grafana-proxy-secret
   type: Opaque
 - files:

@@ -33,12 +33,13 @@ resources:
 
 
 secretGenerator:
+# python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
   - literals:
-      - session_secret=TODO-GENERATE
+      - session_secret=ACCG+dModsdHBPnuJZEZ9w==
     name: prometheus-proxy-secret
     type: Opaque
   - literals:
-      - session_secret=TODO-GENERATE
+      - session_secret=6OvO/3uhBx6rYBjYu+xQFA==
     name: alertmanager-proxy-secret
     type: Opaque
 

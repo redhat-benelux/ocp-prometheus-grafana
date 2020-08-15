@@ -66,8 +66,6 @@ spec:
             - -tls-cert=/etc/tls/private/tls.crt
             - -tls-key=/etc/tls/private/tls.key
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
-            - -cookie-refresh=0
-            - -cookie-expire=24h0m0s
             - -cookie-name=_oauth2_graf_bnl
             - -ssl-insecure-skip-verify=true
             - -request-logging=true
