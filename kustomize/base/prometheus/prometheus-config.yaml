@@ -1,18 +1,18 @@
 global:
-  scrape_interval:     15s
-  evaluation_interval: 15s
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
-
+# Alertmanager configuration
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
       - localhost:9093
 
-
-
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
   - "prometheus-rules.yaml"
+  - "fuse-rules.yaml"
 # - "second.rules"
 
 scrape_configs:
@@ -43,8 +43,20 @@ scrape_configs:
     static_configs:
     - targets: ['grafana-metrics:9779']
 
+# Needs a cluster-role and cluster-binding
+#  - job_name: 'cadvisor'
+#    kubernetes_sd_configs:
+#      - role: node
+#    scheme: https
+#    tls_config:
+#      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+#      insecure_skip_verify: true  # Required with Minikube.
+#    metrics_path: /metrics/cadvisor
+#
+
+
 #  https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
-  - job_name: fuse-endpoints
+  - job_name: fuse-scraping
     honor_timestamps: true
     scrape_interval: 15s
     scrape_timeout: 10s
@@ -56,19 +68,87 @@ scrape_configs:
         names:
         - app-fuse
     relabel_configs:
-#    - source_labels: [__meta_kubernetes_service_annotation_example_io_scrape]
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+        action: replace
+        target_label: __scheme__
+        regex: (https?)
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+      - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+        action: replace
+        target_label: __address__
+        regex: (.+)(?::\d+);(\d+)
+        replacement: $1:$2
+      - action: labelmap
+        regex: __meta_kubernetes_service_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        action: replace
+        target_label: kubernetes_namespace
+      - source_labels: [__meta_kubernetes_service_name]
+        action: replace
+        target_label: kubernetes_name
+
+#    relabel_configs:
+#    - action: labelmap
+#      regex: __meta_kubernetes_(.+)
+#    - source_labels: [__meta_kubernetes_service_label_app]
+#      separator: ;
+#      regex: fuse77(.+)
+#      replacement: $1
+#      action: keep
+
+#    - source_labels: [__meta_kubernetes_pod_annotation_fuse_scraping_scrape]
 #      action: keep
 #      regex: true
-    - source_labels: [__meta_kubernetes_namespace]
-      separator: ;
-      regex: (.*)
-      target_label: kubernetes_namespace
-      replacement: $1
-      action: replace
-    - source_labels: [__meta_kubernetes_service_label_app]
-      separator: ;
-      regex: (.*)
-      target_label: label_app
-      replacement: $1
-      action: replace
+#    - source_labels: [__meta_kubernetes_pod_annotation_fuse_scraping_port]
+#      action: replace
+#      regex: ([^:]+)(?::\d+)?;(\d+)
+#      replacement: $1:$2
+#      target_label: __address__
+#    - source_labels: [__meta_kubernetes_pod_annotation_fuse_scraping_path]
+#      action: replace
+#      regex: (.+)
+#      target_label: __metrics_path__
+#    - source_labels: [__meta_kubernetes_namespace]
+#      separator: ;
+#      regex: (.*)
+#      target_label: kubernetes_namespace
+#      replacement: $1
+#      action: replace
+#    - source_labels: [__meta_kubernetes_service_label_app]
+#      separator: ;
+#      regex: (.*)
+#      target_label: label_app
+#      replacement: $1
+#      action: replace
 
+## Samples::
+#relabel_configs:
+#  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+#    action: keep
+#    regex: true
+#  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+#    action: replace
+#    target_label: __metrics_path__
+#    regex: (.+)
+#  - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+#    action: replace
+#    regex: ([^:]+)(?::\d+)?;(\d+)
+#    replacement: $1:$2
+#    target_label: __address__
+#  - action: labelmap
+#    regex: __meta_kubernetes_pod_label_(.+)
+#  - action: labelmap
+#    regex: __meta_kubernetes_pod_annotation_(syndesis.+)
+#  - source_labels: [__meta_kubernetes_namespace]
+#    action: replace
+#    target_label: kubernetes_namespace
+#  - source_labels: [__meta_kubernetes_pod_name]
+#    action: replace
+#    target_label: kubernetes_pod_name
+#

@@ -1,0 +1,36 @@
+groups:
+- name: fuse-alerts
+  rules:
+  # Alert because the scrape Job is not working
+  - alert: FuseScrapingJobMissing
+    expr: absent(up{job="fuse-scraping"})
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "FuseScraping job missing (instance {{ $labels.instance }})"
+      description: "A FuseScraping job has disappeared\n  VALUE = {{ $value }}"
+
+
+
+
+
+  - record: context:exchanges_completed:ratio_rate10m
+    expr: sum(rate(org_apache_camel_ExchangesCompleted{type="routes"}[10m])) by (context) / sum(rate(org_apache_camel_ExchangesTotal{type="routes"}[10m])) by (context)
+    labels:
+      ratio: tens
+
+  - alert: HighErrorRate
+    expr: context:exchanges_completed:ratio_rate10m{job="fuse-scraping"} >= 0.001
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Exchanges Completed are behind Exchanges Total"
+      description: "Exchanges Completed are behind Exchanges Total"
+
+
+
+#  up{instance=~".*:9779"}
+#  up{job="fuse-scraping",instance=~".*:9779"}
+# (absent(up{job="fuse-scraping"}) or (up{job="fuse-scraping"} == 0)+1) == 1

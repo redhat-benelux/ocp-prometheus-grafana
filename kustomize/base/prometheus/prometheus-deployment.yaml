@@ -96,6 +96,9 @@ spec:
             - name: web
               containerPort: 3000
               protocol: TCP
+          args:
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.retention.time=24h
           livenessProbe:
             httpGet:
               port: 9090
@@ -121,6 +124,9 @@ spec:
             - mountPath: /etc/prometheus/prometheus-rules.yaml
               name: prometheus-rules
               subPath: prometheus-rules.yaml
+            - mountPath: /etc/prometheus/fuse-rules.yaml
+              name: fuse-rules
+              subPath: fuse-rules.yaml
             - mountPath: /prometheus
               name: prometheus-data
 
@@ -237,6 +243,9 @@ spec:
         - name: prometheus-rules
           configMap:
             name: prometheus-rules
+        - name: fuse-rules
+          configMap:
+            name: fuse-rules
         - name: prometheus-tls
           secret:
             secretName: prometheus-tls

@@ -1,6 +1,5 @@
 groups:
 - name: prometheus
-
   rules:
 
   - alert: PrometheusNotConnectedToAlertmanager
