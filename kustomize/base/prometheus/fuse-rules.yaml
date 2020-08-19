@@ -1,3 +1,11 @@
+# Golden signals
+# Latency : Amount of time to serve a request
+# Traffic : Number of Transactions / Sessions / HTTP Requests
+# Errors  : Rate of failed requests (Traffic related)
+# Saturation : How close to 100% utilization
+
+
+
 groups:
 - name: fuse-alerts
   rules:
@@ -7,14 +15,27 @@ groups:
     for: 1m
     labels:
       severity: critical
+      golden: errors
     annotations:
       summary: "FuseScraping job missing (instance {{ $labels.instance }})"
       description: "A FuseScraping job has disappeared\n  VALUE = {{ $value }}"
 
 
+  # metadata.label.app  must exist
+  - alert: JVMAppHeapUsageAbove80Percent
+    expr: (sum(avg_over_time(jvm_memory_bytes_used{area="heap"}[1m])) by (app) / sum(avg_over_time(jvm_memory_bytes_max{area="heap"}[1m])) by (app)) >= 0.80
+    for: 1m
+    labels:
+      severity: critical
+      golden: saturation
+    annotations:
+      summary: "JVMAppHeapUsageAbove80Percent job missing (app {{ $labels.app }})"
+      description: "A JVMAppHeapUsageAbove80Percent\n  VALUE = {{ $value }}"
 
 
 
+
+  # TODO mixing contexts and routes
   - record: context:exchanges_completed:ratio_rate10m
     expr: sum(rate(org_apache_camel_ExchangesCompleted{type="routes"}[10m])) by (context) / sum(rate(org_apache_camel_ExchangesTotal{type="routes"}[10m])) by (context)
     labels:
@@ -33,4 +54,6 @@ groups:
 
 #  up{instance=~".*:9779"}
 #  up{job="fuse-scraping",instance=~".*:9779"}
-# (absent(up{job="fuse-scraping"}) or (up{job="fuse-scraping"} == 0)+1) == 1
+#  (absent(up{job="fuse-scraping"}) or (up{job="fuse-scraping"} == 0)+1) == 1
+#  max_over_time(org_apache_camel_MaxProcessingTime[5m])
+

@@ -92,6 +92,14 @@ scrape_configs:
       - source_labels: [__meta_kubernetes_service_name]
         action: replace
         target_label: kubernetes_name
+      - source_labels: [__meta_kubernetes_pod_phase]
+        action: replace
+        target_label: pod_phase
+      - source_labels: [__meta_kubernetes_pod_ready]
+        action: replace
+        target_label: pod_ready
+
+
 
 #    relabel_configs:
 #    - action: labelmap
