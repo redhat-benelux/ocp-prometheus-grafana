@@ -22,7 +22,10 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: NAME_SPACE_ROUTE
-              value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
+              valueFrom:
+                configMapKeyRef:
+                  name: oauth-issuer
+                  key: NAME_SPACE_ROUTE
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -85,8 +88,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            #            - name: NAME_SPACE_ROUTE
+            #              value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
             - name: NAME_SPACE_ROUTE
-              value: 'oauth-openshift.apps.guid.it-speeltuin.eu'
+              valueFrom:
+                configMapKeyRef:
+                  name: oauth-issuer
+                  key: NAME_SPACE_ROUTE
           resources:
             limits:
               cpu: 100m

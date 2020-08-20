@@ -6,57 +6,61 @@ namespace: app-mon
 
 commonLabels:
   app: prometheus
+  app.kubernetes.io/managed-by: kustomize
   app.kubernetes.io/name: prometheus
   app.kubernetes.io/part-of: app-monitoring
-  app.kubernetes.io/managed-by: kustomize
 
 
 images:
-  - name: prometheus-image
-    newName: prom/prometheus
-    newTag: v2.20.1
-  - name: oauth-proxy-image
-    newName: openshift3/oauth-proxy
-    newTag: v3.11
-  - name: alertmanager-image
-    newName: prom/alertmanager
-    newTag: v0.21.0
+- name: prometheus-image
+  newName: prom/prometheus
+  newTag: v2.20.1
+- name: oauth-proxy-image
+  newName: openshift3/oauth-proxy
+  newTag: v3.11
+- name: alertmanager-image
+  newName: prom/alertmanager
+  newTag: v0.21.0
 
 resources:
-  - prometheus-sa.yaml
-  - prometheus-route.yaml
-  - prometheus-svc.yaml
-  - prometheus-direct-svc.yaml
-  - prometheus-data-pvc.yaml
-  - prometheus-deployment.yaml
-  - prometheus-role.yaml
-  - prometheus-role-binding.yaml
-  - alertmanager-svc.yaml
-  - alertmanager-route.yaml
-  - alertmanager-data-pvc.yaml
+- prometheus-sa.yaml
+- prometheus-route.yaml
+- prometheus-svc.yaml
+- prometheus-direct-svc.yaml
+- prometheus-data-pvc.yaml
+- prometheus-deployment.yaml
+- prometheus-role.yaml
+- prometheus-role-binding.yaml
+- alertmanager-svc.yaml
+- alertmanager-route.yaml
+- alertmanager-data-pvc.yaml
 
 
-secretGenerator:
 # python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
-  - literals:
-      - session_secret=ACCG+dModsdHBPnuJZEZ9w==
-    name: prometheus-proxy-secret
-    type: Opaque
-  - literals:
-      - session_secret=6OvO/3uhBx6rYBjYu+xQFA==
-    name: alertmanager-proxy-secret
-    type: Opaque
+secretGenerator:
+- literals:
+  - session_secret=ACCG+dModsdHBPnuJZEZ9w==
+  name: prometheus-proxy-secret
+  type: Opaque
+- literals:
+  - session_secret=6OvO/3uhBx6rYBjYu+xQFA==
+  name: alertmanager-proxy-secret
+  type: Opaque
 
 configMapGenerator:
-  - files:
-      - alertmanager.yml=alertmanager-config.yaml
-    name: alertmanager-config
-  - files:
-      - prometheus.yml=prometheus-config.yaml
-    name: prometheus-config
-  - files:
-      - prometheus-rules.yaml
-    name: prometheus-rules
-  - files:
-      - fuse-rules.yaml
-    name: fuse-rules
+- files:
+  - alertmanager.yml=alertmanager-config.yaml
+  name: alertmanager-config
+- files:
+  - prometheus.yml=prometheus-config.yaml
+  name: prometheus-config
+- files:
+  - prometheus-rules.yaml
+  name: prometheus-rules
+- files:
+  - fuse-rules.yaml
+  name: fuse-rules
+- literals:
+  - NAME_SPACE_ROUTE=oauth-openshift.apps.guid.it-speeltuin.eu
+  name: oauth-issuer
+##  oc get route oauth-openshift -n openshift-authentication -o json | jq -r .spec.host
