@@ -43,16 +43,15 @@ scrape_configs:
     static_configs:
     - targets: ['grafana-metrics:9779']
 
-# Needs a cluster-role and cluster-binding
-#  - job_name: 'cadvisor'
-#    kubernetes_sd_configs:
-#      - role: node
-#    scheme: https
-#    tls_config:
-#      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-#      insecure_skip_verify: true  # Required with Minikube.
-#    metrics_path: /metrics/cadvisor
-#
+#  - job_name: fuse-static
+#    honor_timestamps: true
+#    scrape_interval: 15s
+#    scrape_timeout: 10s
+#    metrics_path: /metrics
+#    scheme: http
+#    static_configs:
+#      - targets: ['10.128.2.35:9779']
+
 
 
 #  https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
@@ -91,7 +90,7 @@ scrape_configs:
         target_label: kubernetes_namespace
       - source_labels: [__meta_kubernetes_service_name]
         action: replace
-        target_label: kubernetes_name
+        target_label: service_name
       - source_labels: [__meta_kubernetes_pod_phase]
         action: replace
         target_label: pod_phase
@@ -100,7 +99,7 @@ scrape_configs:
         target_label: pod_ready
 
 
-
+## Samples::
 #    relabel_configs:
 #    - action: labelmap
 #      regex: __meta_kubernetes_(.+)
@@ -135,7 +134,7 @@ scrape_configs:
 #      replacement: $1
 #      action: replace
 
-## Samples::
+
 #relabel_configs:
 #  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
 #    action: keep

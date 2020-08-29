@@ -7,9 +7,9 @@ resources:
 - ../../base
 
 
-vars:
-  - name: NAME_SPACE_ROUTE
-    objref:
-      kind: configMap
-      name: oauth-issuer
-      apiVersion: v1
+#vars:
+#  - name: NAME_SPACE_ROUTE
+#    objref:
+#      kind: configMap
+#      name: oauth-issuer
+#      apiVersion: v1

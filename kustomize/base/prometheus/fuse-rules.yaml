@@ -20,35 +20,25 @@ groups:
       summary: "FuseScraping job missing (instance {{ $labels.instance }})"
       description: "A FuseScraping job has disappeared\n  VALUE = {{ $value }}"
 
-
-  # metadata.label.app  must exist
-  - alert: JVMAppHeapUsageAbove80Percent
-    expr: (sum(avg_over_time(jvm_memory_bytes_used{area="heap"}[1m])) by (app) / sum(avg_over_time(jvm_memory_bytes_max{area="heap"}[1m])) by (app)) >= 0.80
+  - alert: JVMAppHeapUsageAbove90Percent
+    expr: (jvm_memory_bytes_used{area="heap"} / jvm_memory_bytes_max{area="heap"} ) >= 0.90
     for: 1m
     labels:
       severity: critical
       golden: saturation
     annotations:
-      summary: "JVMAppHeapUsageAbove80Percent job missing (app {{ $labels.app }})"
-      description: "A JVMAppHeapUsageAbove80Percent\n  VALUE = {{ $value }}"
+      summary: "JVMAppHeapUsageAbove90Percent  (app {{ $labels.app }} project {{ $labels.kubernetes_namespace}} )"
+      description: "A JVMAppHeapUsageAbove90Percent\n  VALUE = {{ $value | humanizePercentage }}"
 
-
-
-
-  # TODO mixing contexts and routes
-  - record: context:exchanges_completed:ratio_rate10m
-    expr: sum(rate(org_apache_camel_ExchangesCompleted{type="routes"}[10m])) by (context) / sum(rate(org_apache_camel_ExchangesTotal{type="routes"}[10m])) by (context)
+  - alert: FuseJobDown
+    expr: up == 0
+    for: 1m
     labels:
-      ratio: tens
-
-  - alert: HighErrorRate
-    expr: context:exchanges_completed:ratio_rate10m{job="fuse-scraping"} >= 0.001
-    for: 10m
-    labels:
-      severity: warning
+      severity: critical
+      golden: errors
     annotations:
-      summary: "Exchanges Completed are behind Exchanges Total"
-      description: "Exchanges Completed are behind Exchanges Total"
+      summary: "Fuse  job Down missing (instance {{ $labels.instance }})"
+      description: "A Fuse job Down has disappeared\n  VALUE = {{ $value }}"
 
 
 
