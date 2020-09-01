@@ -35,7 +35,6 @@ resources:
 - alertmanager-route.yaml
 - alertmanager-data-pvc.yaml
 
-
 # python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
 secretGenerator:
 - literals:
@@ -64,3 +63,4 @@ configMapGenerator:
   - NAME_SPACE_ROUTE=oauth-openshift.apps.guid.it-speeltuin.eu
   name: oauth-issuer
 ##  oc get route oauth-openshift -n openshift-authentication -o json | jq -r .spec.host
+##  oc get --raw '/.well-known/oauth-authorization-server'

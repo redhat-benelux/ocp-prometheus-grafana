@@ -5,4 +5,4 @@ metadata:
 rules:
   - apiGroups: [ "" ]
     resources: [ "services","endpoints","pods" ]
-    verbs: [ "list","get", "watch" ]
+    verbs: [ "list","get","watch" ]
