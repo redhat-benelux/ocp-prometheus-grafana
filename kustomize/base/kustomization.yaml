@@ -5,4 +5,4 @@ kind: Kustomization
 bases:
   - grafana
   - prometheus
-#  - kube-state-metrics
+

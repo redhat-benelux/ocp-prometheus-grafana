@@ -1,8 +1,30 @@
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: Role
+#metadata:
+#  name: prometheus-sd-role
+#rules:
+#  - apiGroups: [ "" ]
+#    resources: [ "services","endpoints","pods" ]
+#    verbs: [ "list","get","watch" ]
+
+
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: prometheus-sd-role
+  name: prometheus
 rules:
-  - apiGroups: [ "" ]
-    resources: [ "services","endpoints","pods" ]
-    verbs: [ "list","get","watch" ]
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+    verbs: ["get", "list", "watch"]
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses
+    verbs: ["get", "list", "watch"]
+  - nonResourceURLs: ["/metrics", "/metrics/cadvisor"]
+    verbs: ["get"]
