@@ -5,7 +5,7 @@ metadata:
     prometheus.io/scrape: 'true'
     prometheus.io/port: '8080'
     prometheus.io/scheme: http
-  name: kube-state-metrics
+  name: kubestatemetrics
 spec:
   ports:
     - name: web
@@ -13,4 +13,4 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: kube-state-metrics
+    app: kubestatemetrics

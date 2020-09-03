@@ -9,16 +9,16 @@
 groups:
 - name: fuse-alerts
   rules:
-  # Alert because the scrape Job is not working
-  - alert: FuseScrapingJobMissing
-    expr: absent(up{job="fuse-scraping"})
-    for: 1m
-    labels:
-      severity: critical
-      golden: errors
-    annotations:
-      summary: "FuseScraping job missing (instance {{ $labels.instance }})"
-      description: "A FuseScraping job has disappeared\n  VALUE = {{ $value }}"
+#  # Alert because the scrape Job is not working
+#  - alert: k8servicesScrapingJobMissing
+#    expr: absent(up{job="k8services"})
+#    for: 1m
+#    labels:
+#      severity: critical
+#      golden: errors
+#    annotations:
+#      summary: "Scraping job missing (instance {{ $labels.instance }})"
+#      description: "A Scraping job has disappeared\n  VALUE = {{ $value }}"
 
   - alert: JVMAppHeapUsageAbove90Percent
     expr: (jvm_memory_bytes_used{area="heap"} / jvm_memory_bytes_max{area="heap"} ) >= 0.90
@@ -31,9 +31,9 @@ groups:
       description: "A JVMAppHeapUsageAbove90Percent\n  VALUE = {{ $value | humanizePercentage }}"
 
    # Check the offset value (1h) with your SLI/SLO/SLA. This Alert will give a false resolved after (1h)!
-  - alert: FuseJobDown
-    expr: count (org_apache_camel_TotalRoutes offset 1h > 0) by (app,kubernetes_namespace) unless count(org_apache_camel_TotalRoutes) by (app,kubernetes_namespace)
-    for: 5m
+  - alert: FuseJobDown-fuse77-spring-boot2
+    expr: up{job="fuse77-spring-boot2"} == 1 unless on(job, instance) org_apache_camel_TotalRoutes
+    for: 1m
     labels:
       severity: critical
       golden: errors
@@ -44,7 +44,7 @@ groups:
 
 
 #  up{instance=~".*:9779"}
-#  up{job="fuse-scraping",instance=~".*:9779"}
-#  (absent(up{job="fuse-scraping"}) or (up{job="fuse-scraping"} == 0)+1) == 1
+#  up{job="k8services",instance=~".*:9779"}
+#  (absent(up{job="k8services"}) or (up{job="k8services"} == 0)+1) == 1
 #  max_over_time(org_apache_camel_MaxProcessingTime[5m])
 
