@@ -71,7 +71,7 @@ spec:
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
             - -cookie-name=_oauth2_graf_bnl
             - -ssl-insecure-skip-verify=true
-            - -request-logging=true
+            - -request-logging=false
             - -skip-auth-regex=^/oauth/healthz
           volumeMounts:
             - mountPath: /etc/tls/private

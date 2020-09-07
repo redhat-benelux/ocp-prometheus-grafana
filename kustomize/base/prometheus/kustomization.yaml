@@ -15,9 +15,12 @@ images:
 - name: prometheus-image
   newName: prom/prometheus
   newTag: v2.20.1
-- name: oauth-proxy-image
-  newName: openshift3/oauth-proxy
+- name: oauth-proxy-image-ocp3
+  newName: registry.redhat.io/openshift3/oauth-proxy
   newTag: v3.11
+- name: oauth-proxy-image
+  newName: registry.redhat.io/openshift4/ose-oauth-proxy
+  newTag: latest
 - name: alertmanager-image
   newName: prom/alertmanager
   newTag: v0.21.0
@@ -26,7 +29,6 @@ resources:
 - prometheus-sa.yaml
 - prometheus-route.yaml
 - prometheus-svc.yaml
-- prometheus-direct-svc.yaml
 - prometheus-data-pvc.yaml
 - prometheus-deployment.yaml
 - prometheus-role.yaml
@@ -59,6 +61,9 @@ configMapGenerator:
 - files:
   - fuse-rules.yaml
   name: fuse-rules
+- files:
+  - app-rules.yaml
+  name: app-rules
 - literals:
   - NAME_SPACE_ROUTE=oauth-openshift.apps.guid.it-speeltuin.eu
   name: oauth-issuer

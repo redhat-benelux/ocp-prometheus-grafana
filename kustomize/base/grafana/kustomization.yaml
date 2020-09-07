@@ -14,7 +14,7 @@ resources:
 - grafana-svc.yaml
 - grafana-sa.yaml
 - grafana-route.yaml
-- grafana-direct-svc.yaml
+#- grafana-direct-svc.yaml
 - grafana-data-pvc.yaml
 
 configMapGenerator:

@@ -6,6 +6,9 @@ metadata:
   name: grafana
   annotations:
     service.alpha.openshift.io/serving-cert-secret-name: grafana-tls
+    prometheus.io/scrape: 'true'
+    prometheus.io/scheme: 'http'
+    prometheus.io/port: '3000'
 spec:
   ports:
     - name: grafana

@@ -1,0 +1,35 @@
+groups:
+  - name: app-alerts
+    rules:
+
+    - alert: ABSENT-fuse77-spring-boot2
+      expr: absent(up{job="fuse77-spring-boot2"})
+      for: 1m
+      labels:
+        severity: critical
+        golden: errors
+      annotations:
+        summary: "Fuse  job ABSENT missing (app {{ $labels.app }} in (namespace {{ $labels.namespace }} )"
+        description: "A Fuse job has disappeared\n  (app {{ $labels.app }} in (namespace {{ $labels.namespace }} )"
+
+    - alert: StatefulSetAppIsDown
+      expr: (kube_statefulset_status_replicas_ready / kube_statefulset_status_replicas_current) != 1
+      for: 1m
+      labels:
+        severity: "CRITICAL"
+        priority: PAGE
+      annotations:
+        description: "App is DOWN. The app is ({{ $labels.statefulset }}) in namespace ({{ $labels.namespace }})."
+        summary: "App is DOWN. The app is ({{ $labels.statefulset }}) in namespace ({{ $labels.namespace }})."
+        url: "https://www.example.com/too_many_requests_fixing_instructions"
+
+    - alert: DeploymentAppIsDown
+      expr: kube_deployment_status_replicas != kube_deployment_spec_replicas
+      for: 1m
+      labels:
+        severity: "CRITICAL"
+        priority: PAGE
+      annotations:
+        description: "Deployment App is DOWN. The app is ({{ $labels.deployment }}) in namespace ({{ $labels.namespace }})."
+        summary: "Deployment App is DOWN. The app is ({{ $labels.deployment }}) in namespace ({{ $labels.namespace }})."
+        url: "https://www.example.com/too_many_requests_fixing_instructions"

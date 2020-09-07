@@ -1,0 +1,25 @@
+= README
+
+This is a deployment of Prometheus with Alertmanager and Grafana.
+
+The monitoring stack (Prometheus and Grafana) is deployed in its own project (app-mon).
+
+The applications to be monitored are deployed in app-fuse.
+
+== kubelet and cAdvicor and rbac
+Those two are configured in prometheus-deployment.yaml and need
+a specific clusterole-binding. You can find that in  prometheus-role.yaml.
+
+
+
+
+== RBAC
+
+
+
+== Pull secret
+To pull images from registry.redhat.io you need to create a pull secret (redhat-pull-secret)
+in the monitoring (app-mon) project.
+
+You need this to pull the image (registry.redhat.io/openshift4/ose-oauth-proxy:latest).
+

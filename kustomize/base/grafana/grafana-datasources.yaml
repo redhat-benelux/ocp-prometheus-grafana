@@ -16,5 +16,5 @@ datasources:
     editable: false
     isDefault: true
     orgId: 1
-    url: 'http://prometheus-direct:9090'
+    url: 'http://localhost:9090'
     version: 1

@@ -11,31 +11,32 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  - "prometheus-rules.yaml"
-  - "fuse-rules.yaml"
-# - "second.rules"
+  - "*-rules.yaml"
+#  - "prometheus-rules.yaml"
+#  - "fuse-rules.yaml"
+## - "second.rules"
 
 scrape_configs:
-  - job_name: prometheus
-    honor_timestamps: true
-    metrics_path: /metrics
-    scheme: http
-    static_configs:
-    - targets: ['localhost:9090']
+#  - job_name: prometheus
+#    honor_timestamps: true
+#    metrics_path: /metrics
+#    scheme: http
+#    static_configs:
+#    - targets: ['localhost:9090']
+#
+#  - job_name: alertmanager
+#    honor_timestamps: true
+#    metrics_path: /metrics
+#    scheme: http
+#    static_configs:
+#    - targets: ['localhost:9093']
 
-  - job_name: alertmanager
-    honor_timestamps: true
-    metrics_path: /metrics
-    scheme: http
-    static_configs:
-    - targets: ['localhost:9093']
-
-  - job_name: grafana
-    honor_timestamps: true
-    metrics_path: /metrics
-    scheme: http
-    static_configs:
-      - targets: ['grafana-metrics:9779']
+#  - job_name: grafana
+#    honor_timestamps: true
+#    metrics_path: /metrics
+#    scheme: http
+#    static_configs:
+#      - targets: ['localhost:9779']
 
   - job_name: 'kubelet'
     kubernetes_sd_configs:
@@ -83,7 +84,8 @@ scrape_configs:
     - role: endpoints
       namespaces:
         names:
-        - app-fuse
+          - app-mon
+          - app-fuse
     relabel_configs:
       - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
         action: keep

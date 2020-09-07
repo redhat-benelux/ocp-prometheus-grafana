@@ -30,17 +30,6 @@ groups:
       summary: "JVMAppHeapUsageAbove90Percent  (app {{ $labels.app }} project {{ $labels.kubernetes_namespace}} )"
       description: "A JVMAppHeapUsageAbove90Percent\n  VALUE = {{ $value | humanizePercentage }}"
 
-   # Check the offset value (1h) with your SLI/SLO/SLA. This Alert will give a false resolved after (1h)!
-  - alert: FuseJobDown-fuse77-spring-boot2
-    expr: up{job="fuse77-spring-boot2"} == 1 unless on(job, instance) org_apache_camel_TotalRoutes
-    for: 1m
-    labels:
-      severity: critical
-      golden: errors
-    annotations:
-      summary: "Fuse  job Down missing (app {{ $labels.app }} in (namespace {{ $labels.kubernetes_namespace }} )"
-      description: "A Fuse job Down has disappeared\n  (app {{ $labels.app }} in (namespace {{ $labels.kubernetes_namespace }} )"
-
 
 
 #  up{instance=~".*:9779"}

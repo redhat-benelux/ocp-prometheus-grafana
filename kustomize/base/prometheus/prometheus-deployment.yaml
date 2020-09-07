@@ -13,6 +13,8 @@ spec:
         deployment: prometheus
     spec:
       serviceAccountName: prometheus
+      imagePullSecrets:
+        - name: redhat-pull-secret
       containers:
         - name: prometheus-proxy
           image: oauth-proxy-image
@@ -71,7 +73,7 @@ spec:
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
             - -cookie-name=_oauth2_prom_bnl
             - -ssl-insecure-skip-verify=true
-            - -request-logging=true
+            - -request-logging=false
             - -skip-auth-regex=^/oauth/healthz
           volumeMounts:
             - mountPath: /etc/tls/private
@@ -134,6 +136,9 @@ spec:
             - mountPath: /etc/prometheus/fuse-rules.yaml
               name: fuse-rules
               subPath: fuse-rules.yaml
+            - mountPath: /etc/prometheus/app-rules.yaml
+              name: app-rules
+              subPath: app-rules.yaml
             - mountPath: /prometheus
               name: prometheus-data
 
@@ -170,7 +175,7 @@ spec:
             - -tls-key=/etc/tls/private/tls.key
             - -cookie-secret-file=/etc/proxy/secrets/session_secret
             - -cookie-name=_oauth2_alert_bnl
-            - -request-logging=true
+            - -request-logging=false
             - -skip-auth-regex=^/oauth/healthz
           resources:
             limits:
@@ -251,6 +256,9 @@ spec:
         - name: fuse-rules
           configMap:
             name: fuse-rules
+        - name: app-rules
+          configMap:
+            name: app-rules
         - name: prometheus-tls
           secret:
             secretName: prometheus-tls
