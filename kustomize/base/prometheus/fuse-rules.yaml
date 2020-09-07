@@ -30,6 +30,16 @@ groups:
       summary: "JVMAppHeapUsageAbove90Percent  (app {{ $labels.app }} project {{ $labels.kubernetes_namespace}} )"
       description: "A JVMAppHeapUsageAbove90Percent\n  VALUE = {{ $value | humanizePercentage }}"
 
+  - alert: StorageHighUsage90Percent
+    expr: (kubelet_volume_stats_used_bytes{persistentvolumeclaim=~".+"}  / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~".+"} ) > 0.9
+    for: 15m
+    labels:
+      severity: "CRITICAL"
+      priority: PAGE
+    annotations:
+      summary: "Disk usage of a PVC is above 90 percent. The pvc is ({{ $labels.persistentvolumeclaim }}) in namespace ({{ $labels.namespace }})."
+      description: "Disk usage of a PVC is above 90 percent. VALUE = {{ $value | humanizePercentage }} pvc is ({{ $labels.persistentvolumeclaim }})  in namespace ({{ $labels.namespace }})."
+      url: "https://www.example.com/too_many_requests_fixing_instructions"
 
 
 #  up{instance=~".*:9779"}

@@ -21,6 +21,13 @@ configMapGenerator:
 - files:
   - grafana.ini
   name: grafana-config
+- files:
+    - dashboards/fuse.json
+  name: dashboard-fuse
+- files:
+    - dashboard-provisioning.yaml
+  name: grafana-dashboards
+
 secretGenerator:
 #  python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
 - literals:

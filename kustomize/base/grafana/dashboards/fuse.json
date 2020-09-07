@@ -18,8 +18,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 19,
-  "iteration": 1599145171116,
+  "iteration": 1599483477905,
   "links": [],
   "panels": [
     {
@@ -44,6 +43,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -75,7 +80,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.6.2",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -96,7 +100,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "",
+      "tableColumn": "{namespace=\"app-fuse\"}",
       "targets": [
         {
           "expr": "count by (namespace) (org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",type=\"context\"})",
@@ -106,7 +110,7 @@
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Instances in $namespace",
+      "title": "Instances",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -128,6 +132,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -159,7 +169,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.6.2",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -180,7 +189,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "",
+      "tableColumn": "{namespace=\"app-fuse\"}",
       "targets": [
         {
           "expr": "count by (namespace) (org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",type=\"routes\"})",
@@ -190,7 +199,7 @@
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Routes in $namespace",
+      "title": "Routes",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -213,6 +222,12 @@
       ],
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -244,7 +259,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.6.2",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -265,7 +279,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "",
+      "tableColumn": "{namespace=\"app-fuse\"}",
       "targets": [
         {
           "expr": "count by (namespace) (org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",type=\"processors\"})",
@@ -275,7 +289,7 @@
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Processors in $namespace",
+      "title": "Processors",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -298,6 +312,12 @@
       ],
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -329,7 +349,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.6.2",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -360,7 +379,7 @@
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Failed in $namespace",
+      "title": "Failed",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -383,6 +402,12 @@
       ],
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -414,7 +439,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.6.2",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -445,7 +469,7 @@
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Completed in $namespace",
+      "title": "Completed",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -468,6 +492,12 @@
       ],
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -499,7 +529,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.6.2",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -530,7 +559,7 @@
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Inflight in $namespace",
+      "title": "Inflight",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -543,7 +572,7 @@
       "valueName": "avg"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -552,422 +581,441 @@
         "y": 4
       },
       "id": 14,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Prometheus",
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 21,
-            "x": 0,
-            "y": 5
-          },
-          "hiddenSeries": false,
-          "id": 2,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",type=\"context\"})",
-              "legendFormat": "Exchanges Completed ($context)",
-              "refId": "A"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",type=\"context\"})",
-              "legendFormat": "Exchanges Failed",
-              "refId": "B"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",type=\"context\"})",
-              "legendFormat": "Exchanges Inflight",
-              "refId": "C"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",type=\"context\"})",
-              "legendFormat": "Exchanges Total ",
-              "refId": "D"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Exchanges  in $namespace",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 7,
-            "x": 0,
-            "y": 13
-          },
-          "hiddenSeries": false,
-          "id": 10,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
-              "legendFormat": "Exchanges Completed ($context)",
-              "refId": "A"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
-              "legendFormat": "Exchanges Failed ($context)",
-              "refId": "B"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
-              "legendFormat": "Exchanges Inflight ($context)",
-              "refId": "C"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
-              "legendFormat": "Exchanges Total ($context)",
-              "refId": "D"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Exchanges Context ( $context )",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 7,
-            "x": 7,
-            "y": 13
-          },
-          "hiddenSeries": false,
-          "id": 11,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
-              "legendFormat": "Exchanges Completed ($route)",
-              "refId": "A"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
-              "legendFormat": "Exchanges Failed ($route)",
-              "refId": "B"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
-              "legendFormat": "Exchanges Inflight ($route)",
-              "refId": "C"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
-              "legendFormat": "Exchanges Total ($route)",
-              "refId": "D"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Exchanges Route in ( $route )",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 7,
-            "x": 14,
-            "y": 13
-          },
-          "hiddenSeries": false,
-          "id": 12,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
-              "legendFormat": "Exchanges Completed ($processor)",
-              "refId": "A"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
-              "legendFormat": "Exchanges Failed($processor)",
-              "refId": "B"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
-              "legendFormat": "Exchanges Inflight ($processor)",
-              "refId": "C"
-            },
-            {
-              "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
-              "legendFormat": "Exchanges Total ($processor)",
-              "refId": "D"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Exchanges Processor in ( $processor )",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
+      "panels": [],
       "title": "Exchanges",
       "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 21,
+        "x": 0,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",type=\"context\"})",
+          "legendFormat": "Exchanges Completed ($context)",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",type=\"context\"})",
+          "legendFormat": "Exchanges Failed",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",type=\"context\"})",
+          "legendFormat": "Exchanges Inflight",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",type=\"context\"})",
+          "legendFormat": "Exchanges Total ",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Exchanges  in $namespace",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 0,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
+          "legendFormat": "Exchanges Completed ($context)",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
+          "legendFormat": "Exchanges Failed ($context)",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
+          "legendFormat": "Exchanges Inflight ($context)",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",context=\"$context\",type=\"context\"})",
+          "legendFormat": "Exchanges Total ($context)",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Exchanges Context ( $context )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 7,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 11,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
+          "legendFormat": "Exchanges Completed ($route)",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
+          "legendFormat": "Exchanges Failed ($route)",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
+          "legendFormat": "Exchanges Inflight ($route)",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",context=\"$context\",type=\"routes\",route=\"$route\"})",
+          "legendFormat": "Exchanges Total ($route)",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Exchanges Route in ( $route )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 14,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(org_apache_camel_ExchangesCompleted{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
+          "legendFormat": "Exchanges Completed ($processor)",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesFailed{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
+          "legendFormat": "Exchanges Failed($processor)",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesInflight{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
+          "legendFormat": "Exchanges Inflight ($processor)",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(org_apache_camel_ExchangesTotal{namespace=\"$namespace\",context=\"$context\",type=\"processors\",processor=\"$processor\"})",
+          "legendFormat": "Exchanges Total ($processor)",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Exchanges Processor in ( $processor )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -976,7 +1024,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 21
       },
       "id": 16,
       "panels": [],
@@ -990,13 +1038,20 @@
       "dashes": false,
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 21,
         "x": 0,
-        "y": 6
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 19,
@@ -1012,10 +1067,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1104,13 +1157,20 @@
       "dashes": false,
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 0,
-        "y": 14
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 20,
@@ -1126,10 +1186,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1218,13 +1276,20 @@
       "dashes": false,
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 7,
-        "y": 14
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 21,
@@ -1240,10 +1305,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1332,13 +1395,20 @@
       "dashes": false,
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 14,
-        "y": 14
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 22,
@@ -1354,10 +1424,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1441,7 +1509,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 22,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [
     "v1.0",
@@ -1453,8 +1521,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "fuse-01-dev",
-          "value": "fuse-01-dev"
+          "selected": false,
+          "text": "app-fuse",
+          "value": "app-fuse"
         },
         "datasource": "Prometheus",
         "definition": "label_values(org_apache_camel_TotalProcessingTime{type=\"context\"},namespace)",
@@ -1478,8 +1547,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "archive",
-          "value": "archive"
+          "selected": false,
+          "text": "MyCamel",
+          "value": "MyCamel"
         },
         "datasource": "Prometheus",
         "definition": "label_values(org_apache_camel_TotalProcessingTime{type=\"context\",namespace=\"$namespace\"},context)",
@@ -1503,8 +1573,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "ErrorTest",
-          "value": "ErrorTest"
+          "selected": true,
+          "text": "simple-route-3",
+          "value": "simple-route-3"
         },
         "datasource": "Prometheus",
         "definition": "label_values(org_apache_camel_TotalProcessingTime{namespace=\"$namespace\",context=\"$context\",type=\"routes\"},route)",
@@ -1528,8 +1599,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "choice1",
-          "value": "choice1"
+          "selected": true,
+          "text": "route-transform-2",
+          "value": "route-transform-2"
         },
         "datasource": "Prometheus",
         "definition": "label_values(org_apache_camel_TotalProcessingTime{namespace=\"$namespace\",context=\"$context\",type=\"processors\"},processor)",
@@ -1554,7 +1626,7 @@
   },
   "time": {
     "from": "now-6h",
-    "to": "now"
+    "to": "now-1m"
   },
   "timepicker": {
     "nowDelay": "1m",
@@ -1571,5 +1643,5 @@
   "timezone": "",
   "title": "Fuse Contexts",
   "uid": "Dk5dHSDMk",
-  "version": 27
+  "version": 1
 }

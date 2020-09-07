@@ -29,6 +29,7 @@ resources:
 - prometheus-sa.yaml
 - prometheus-route.yaml
 - prometheus-svc.yaml
+- prometheus-direct-svc.yaml
 - prometheus-data-pvc.yaml
 - prometheus-deployment.yaml
 - prometheus-role.yaml
