@@ -6,3 +6,17 @@ namespace: app-mon
 resources:
 - ../../base
 
+
+#vars:
+#  - name: MONITOR_PROJECT_NAME
+#    objref:
+#      kind: Namespace
+#      name: app-mon
+#      apiVersion: v1
+
+
+
+configMapGenerator:
+- files:
+    - app-rules.yaml
+  name: app-rules

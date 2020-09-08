@@ -1,8 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: app-mon
-
 commonLabels:
   app: grafana
   app.kubernetes.io/name: grafana
@@ -14,7 +12,6 @@ resources:
 - grafana-svc.yaml
 - grafana-sa.yaml
 - grafana-route.yaml
-#- grafana-direct-svc.yaml
 - grafana-data-pvc.yaml
 
 configMapGenerator:

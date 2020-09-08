@@ -17,7 +17,7 @@ If you need really the UserInfo then go for a complete OIDC implementation like 
 == NAME_SPACE
 The used namespace is set via env variables through the deployment.yaml.
 
-== NAME_SPACE_ROUTE
+== OAUTH_ISSUER
 That is the issuer for the OAuth server
 
 [source]
@@ -25,7 +25,7 @@ That is the issuer for the OAuth server
   oc run --rm -i -t box --image=registry.redhat.io/ubi8-minimal --restart=Never -- curl https://openshift.default.svc/.well-known/oauth-authorization-server --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 ----
 
-Returns a JSON file with the provided endpoints. Please use the field 'issuer' as NAME_SPACE_ROUTE
+Returns a JSON file with the provided endpoints. Please use the field 'issuer' as OAUTH_ISSUER
 
 
 == Deploy

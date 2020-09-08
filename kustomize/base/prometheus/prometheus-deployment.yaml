@@ -23,11 +23,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: NAME_SPACE_ROUTE
+            - name: OAUTH_ISSUER
               valueFrom:
                 configMapKeyRef:
                   name: oauth-issuer
-                  key: NAME_SPACE_ROUTE
+                  key: OAUTH_ISSUER
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -60,8 +60,8 @@ spec:
             failureThreshold: 3
           args:
             - -provider=openshift
-            - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
-            - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
+            - -login-url=https://$(OAUTH_ISSUER)/oauth/authorize
+            - -redeem-url=https://$(OAUTH_ISSUER)/oauth/token
             - -openshift-service-account=prometheus
             - -https-address=:8443
             - -http-address=
@@ -88,11 +88,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: NAME_SPACE_ROUTE
+            - name: OAUTH_ISSUER
               valueFrom:
                 configMapKeyRef:
                   name: oauth-issuer
-                  key: NAME_SPACE_ROUTE
+                  key: OAUTH_ISSUER
           resources:
             limits:
               cpu: 500m
@@ -156,15 +156,15 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: NAME_SPACE_ROUTE
+            - name: OAUTH_ISSUER
               valueFrom:
                 configMapKeyRef:
                   name: oauth-issuer
-                  key: NAME_SPACE_ROUTE
+                  key: OAUTH_ISSUER
           args:
             - -provider=openshift
-            - -login-url=https://$(NAME_SPACE_ROUTE)/oauth/authorize
-            - -redeem-url=https://$(NAME_SPACE_ROUTE)/oauth/token
+            - -login-url=https://$(OAUTH_ISSUER)/oauth/authorize
+            - -redeem-url=https://$(OAUTH_ISSUER)/oauth/token
             - -openshift-service-account=prometheus
             - -https-address=:9443
             - -http-address=

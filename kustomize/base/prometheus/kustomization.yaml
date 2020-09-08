@@ -1,8 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: app-mon
-
 
 commonLabels:
   app: prometheus
@@ -50,23 +48,20 @@ secretGenerator:
   type: Opaque
 
 configMapGenerator:
+- name:  prometheus-config
+  files:
+    - prometheus.yml=prometheus-config.yaml
 - files:
   - alertmanager.yml=alertmanager-config.yaml
   name: alertmanager-config
-- files:
-  - prometheus.yml=prometheus-config.yaml
-  name: prometheus-config
 - files:
   - prometheus-rules.yaml
   name: prometheus-rules
 - files:
   - fuse-rules.yaml
   name: fuse-rules
-- files:
-  - app-rules.yaml
-  name: app-rules
 - literals:
-  - NAME_SPACE_ROUTE=oauth-openshift.apps.guid.it-speeltuin.eu
+  - OAUTH_ISSUER=oauth-openshift.apps.guid.it-speeltuin.eu
   name: oauth-issuer
 ##  oc get route oauth-openshift -n openshift-authentication -o json | jq -r .spec.host
 ##  oc get --raw '/.well-known/oauth-authorization-server'
