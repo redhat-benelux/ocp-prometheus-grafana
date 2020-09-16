@@ -37,6 +37,20 @@ scrape_configs:
     bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
     metrics_path: /metrics/cadvisor
 
+#  # node-exporter metrics
+#  - job_name: 'node'
+#    honor_labels: true
+#    metrics_path: '/federate'
+#    scheme: https
+#    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+#    tls_config:
+#      insecure_skip_verify: true
+#    params:
+#      'match[]':
+#        - '{job=~".+"}'
+#    static_configs:
+#      - targets:
+#          - 'prometheus-k8s.openshift-monitoring.svc:9091'
 
 
   #  - job_name: fuse-static

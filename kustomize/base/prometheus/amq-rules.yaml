@@ -4,13 +4,26 @@ groups:
 
     - alert: DLQhasMessages
       expr: artemis_message_count{address=~"DLQ.+"} > 1
-      for: 1m
+      for: 5m
       labels:
         severity: critical
         golden: saturation
       annotations:
         summary: "DLQ has Messages  (Address {{ $labels.address }} project {{ $labels.namespace}} )"
         description: "DLQ has Messages  (Address {{ $labels.address }} project {{ $labels.namespace}} )"
+
+    - alert: BrokerUnrouted
+      expr: sum(artemis_unrouted_message_count) by (broker,namespace) - sum(artemis_unrouted_message_count{address="activemq.notifications"}) by (broker,namespace) > bool 1
+      for: 5m
+      labels:
+        severity: critical
+        golden: saturation
+      annotations:
+        summary: "Broker has Unrouted Messages  (Broker {{ $labels.broker }} project {{ $labels.namespace}} )"
+        description: "Broker has Unrouted Messages  (Broker {{ $labels.broker }} project {{ $labels.namespace}} )"
+
+
+
 
 
 
