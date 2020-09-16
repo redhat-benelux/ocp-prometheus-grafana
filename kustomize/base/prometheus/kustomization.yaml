@@ -60,6 +60,9 @@ configMapGenerator:
 - files:
   - fuse-rules.yaml
   name: fuse-rules
+- files:
+    - amq-rules.yaml
+  name: amq-rules
 - literals:
   - OAUTH_ISSUER=oauth-openshift.apps.guid.it-speeltuin.eu
   name: oauth-issuer

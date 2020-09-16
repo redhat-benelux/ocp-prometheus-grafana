@@ -136,6 +136,9 @@ spec:
             - mountPath: /etc/prometheus/fuse-rules.yaml
               name: fuse-rules
               subPath: fuse-rules.yaml
+            - mountPath: /etc/prometheus/amq-rules.yaml
+              name: amq-rules
+              subPath: amq-rules.yaml
             - mountPath: /etc/prometheus/app-rules.yaml
               name: app-rules
               subPath: app-rules.yaml
@@ -256,6 +259,9 @@ spec:
         - name: fuse-rules
           configMap:
             name: fuse-rules
+        - name: amq-rules
+          configMap:
+            name: amq-rules
         - name: app-rules
           configMap:
             name: app-rules

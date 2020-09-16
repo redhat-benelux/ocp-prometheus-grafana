@@ -1,0 +1,17 @@
+groups:
+  - name: amq-alerts
+    rules:
+
+    - alert: DLQhasMessages
+      expr: artemis_message_count{address=~"DLQ.+"} > 1
+      for: 1m
+      labels:
+        severity: critical
+        golden: saturation
+      annotations:
+        summary: "DLQ has Messages  (Address {{ $labels.address }} project {{ $labels.namespace}} )"
+        description: "DLQ has Messages  (Address {{ $labels.address }} project {{ $labels.namespace}} )"
+
+
+
+

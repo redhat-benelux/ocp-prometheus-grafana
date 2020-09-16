@@ -110,17 +110,24 @@ spec:
               mountPath: /var/lib/grafana
             - name: grafana-datasources
               mountPath: /etc/grafana/provisioning/datasources
-            - name: grafana-dashboards
-              mountPath: /etc/grafana/provisioning/dashboards
+#            - name: grafana-dashboards
+#              mountPath: /etc/grafana/provisioning/dashboards
             - name: grafana-config
               mountPath: /etc/grafana
             - name: grafana-tls
               mountPath: /etc/tls/private
             - name: grafana-proxy-secret
               mountPath: /etc/proxy/secrets
-            - mountPath: /grafana-dashboards/fuse.json
+            - mountPath: /var/lib/grafana/dashboards/fuse.json
               name: dashboard-fuse
               subPath: fuse.json
+            - mountPath: /var/lib/grafana/dashboards/amq.json
+              name: dashboard-amq
+              subPath: amq.json
+
+## Looking for plugin provisioning files" logger=provisioning.plugins path=/etc/grafana/provisioning/plugins
+##  Scanning external plugins directory" logger=plugins dir=/var/lib/grafana/plugins
+
 
       volumes:
         - name: grafana-config
@@ -141,6 +148,9 @@ spec:
         - name: dashboard-fuse
           configMap:
             name: dashboard-fuse
+        - name: dashboard-amq
+          configMap:
+            name: dashboard-amq
         - name: grafana-storage
           persistentVolumeClaim:
             claimName: grafana-data-pvc
