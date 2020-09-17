@@ -13,7 +13,7 @@ groups:
         description: "DLQ has Messages  (Address {{ $labels.address }} project {{ $labels.namespace}} )"
 
     - alert: BrokerUnrouted
-      expr: sum(artemis_unrouted_message_count) by (broker,namespace) - sum(artemis_unrouted_message_count{address="activemq.notifications"}) by (broker,namespace) > bool 1
+      expr: (sum by(broker, namespace) (artemis_unrouted_message_count) - sum by(broker, namespace) (artemis_unrouted_message_count{address="activemq.notifications"})) > 1
       for: 5m
       labels:
         severity: critical
@@ -23,8 +23,15 @@ groups:
         description: "Broker has Unrouted Messages  (Broker {{ $labels.broker }} project {{ $labels.namespace}} )"
 
 
-
-
+  - alert: JVMAppHeapUsageAbove90Percent
+    expr: (sum(jvm_memory_used_bytes{area="heap"}) by (namespace,broker) / sum(jvm_memory_max_bytes{area="heap"}) by (namespace,broker) ) >= 0.90
+    for: 1m
+    labels:
+      severity: critical
+      golden: saturation
+    annotations:
+      summary: "JVMAppHeapUsageAbove90Percent  (broker {{ $labels.broker }} project {{ $labels.namespace}} )"
+      description: "A JVMAppHeapUsageAbove90Percent\n  VALUE = {{ $value | humanizePercentage }}"
 
 
 
