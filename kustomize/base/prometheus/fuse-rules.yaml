@@ -20,7 +20,7 @@ groups:
 #      summary: "Scraping job missing (instance {{ $labels.instance }})"
 #      description: "A Scraping job has disappeared\n  VALUE = {{ $value }}"
 
-  - alert: JVMAppHeapUsageAbove90Percent
+  - alert: FuseJVMAppHeapUsageAbove90Percent
     expr: (jvm_memory_bytes_used{area="heap"} / jvm_memory_bytes_max{area="heap"} ) >= 0.90
     for: 1m
     labels:
