@@ -16,11 +16,11 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 3,
-  "iteration": 1600358661926,
+  "iteration": 1600412298007,
   "links": [],
   "panels": [
     {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -29,294 +29,295 @@
         "y": 0
       },
       "id": 34,
-      "panels": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Prometheus",
+          "description": "The amount of used memory",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "decbytes"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 32,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "jvm_memory_used_bytes{broker=\"$broker\"}",
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{ id }}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "jvm_memory_used_bytes",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "The amount of memory in bytes that is committed for the Java virtual machine to use",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "decbytes"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 35,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "jvm_memory_committed_bytes{broker=\"$broker\"}",
+              "interval": "",
+              "legendFormat": "{{ id }}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "jvm_memory_committed_bytes",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "The maximum amount of memory in bytes that can be used for memory management",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 36,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum (jvm_memory_used_bytes{broker=\"$broker\"} ) by (area)  / sum (jvm_memory_max_bytes{broker=\"$broker\"} ) by (area) ",
+              "interval": "",
+              "legendFormat": "{{ area }}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Percentage Memory",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
       "title": "JVM memory",
       "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "description": "The amount of used memory",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 1
-      },
-      "hiddenSeries": false,
-      "id": 32,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jvm_memory_used_bytes{broker=\"$broker\"}",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{ id }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "jvm_memory_used_bytes",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "The amount of memory in bytes that is committed for the Java virtual machine to use",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 1
-      },
-      "hiddenSeries": false,
-      "id": 35,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jvm_memory_committed_bytes{broker=\"$broker\"}",
-          "interval": "",
-          "legendFormat": "{{ id }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "jvm_memory_committed_bytes",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "The maximum amount of memory in bytes that can be used for memory management",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 1
-      },
-      "hiddenSeries": false,
-      "id": 36,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum (jvm_memory_used_bytes{broker=\"$broker\"} ) by (area)  / sum (jvm_memory_max_bytes{broker=\"$broker\"} ) by (area) ",
-          "interval": "",
-          "legendFormat": "{{ area }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Percentage Memory",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percent",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     },
     {
       "collapsed": true,
@@ -325,7 +326,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 1
       },
       "id": 6,
       "panels": [
@@ -367,7 +368,7 @@
             "h": 4,
             "w": 4,
             "x": 0,
-            "y": 10
+            "y": 2
           },
           "id": 2,
           "interval": null,
@@ -428,7 +429,7 @@
             "h": 4,
             "w": 4,
             "x": 4,
-            "y": 10
+            "y": 2
           },
           "id": 9,
           "options": {
@@ -484,7 +485,7 @@
             "h": 4,
             "w": 4,
             "x": 8,
-            "y": 10
+            "y": 2
           },
           "id": 10,
           "options": {
@@ -540,7 +541,7 @@
             "h": 4,
             "w": 4,
             "x": 12,
-            "y": 10
+            "y": 2
           },
           "id": 8,
           "options": {
@@ -572,12 +573,8 @@
           "type": "stat"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": null,
-          "description": "ID-JB-M-02 : Rate per minute : number of messages routed to one or more bindings",
+          "description": "ID-JB-M-02 : number of messages routed to one or more bindings",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -598,93 +595,44 @@
             },
             "overrides": []
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
-            "h": 7,
-            "w": 24,
+            "h": 6,
+            "w": 9,
             "x": 0,
-            "y": 14
+            "y": 6
           },
-          "hiddenSeries": false,
           "id": 39,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
           },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
           "pluginVersion": "7.1.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(artemis_routed_message_count{broker=\"$broker\"}[1m])",
+              "expr": "sum(artemis_routed_message_count{broker=\"$broker\"})",
               "interval": "",
-              "legendFormat": "{{ address }}",
+              "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": [],
           "timeFrom": null,
-          "timeRegions": [],
           "timeShift": null,
-          "title": "Total Enqueue per minute",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "title": "Total Enqueue",
+          "type": "stat"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": null,
-          "description": "ID-JB-M-03 : Rate per minute : Number of messages that have been acknowledge by the broker",
+          "description": "ID-JB-M-03 : Number of messages that have been acknowledge by the broker",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -705,85 +653,40 @@
             },
             "overrides": []
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 21
+            "h": 6,
+            "w": 9,
+            "x": 9,
+            "y": 6
           },
-          "hiddenSeries": false,
           "id": 40,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
           },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
           "pluginVersion": "7.1.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(artemis_messages_acknowledged{broker=\"$broker\"}[1m])",
+              "expr": "sum(artemis_messages_acknowledged{broker=\"$broker\"})",
               "interval": "",
-              "legendFormat": "{{ address }}",
+              "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": [],
           "timeFrom": null,
-          "timeRegions": [],
           "timeShift": null,
-          "title": "Total Dequeue per minute",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "title": "Total Dequeue",
+          "type": "stat"
         }
       ],
       "title": "Broker General in ($namespace)",
@@ -796,7 +699,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 2
       },
       "id": 30,
       "panels": [],
@@ -819,10 +722,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 3
       },
       "hiddenSeries": false,
       "id": 14,
@@ -849,9 +752,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_durable_message_count{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_durable_message_count{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -915,7 +818,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 3
       },
       "hiddenSeries": false,
       "id": 12,
@@ -942,9 +845,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_messages_acknowledged{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_messages_acknowledged{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -953,6 +856,99 @@
       "timeRegions": [],
       "timeShift": null,
       "title": "messages acknowledged",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (broker, address) (artemis_scheduled_durable_message_count{broker=\"$broker\",address=~\"$address\"})",
+          "interval": "",
+          "legendFormat": "{{ address }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "artemis_scheduled_durable_message_count",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1007,8 +1003,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 18
+        "x": 12,
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 19,
@@ -1035,9 +1031,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_scheduled_message_count{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_scheduled_message_count{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1046,6 +1042,99 @@
       "timeRegions": [],
       "timeShift": null,
       "title": "artemis_scheduled_message_count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (broker, address) (artemis_delivering_durable_message_count{broker=\"$broker\",address=~\"$address\"})",
+          "interval": "",
+          "legendFormat": "{{ address }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "artemis_delivering_durable_message_count",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1128,9 +1217,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_delivering_message_count{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_delivering_message_count{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1194,7 +1283,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 27
       },
       "hiddenSeries": false,
       "id": 23,
@@ -1221,9 +1310,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_messages_killed{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_messages_killed{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1290,7 +1379,7 @@
         "y": 27
       },
       "hiddenSeries": false,
-      "id": 15,
+      "id": 13,
       "legend": {
         "avg": false,
         "current": false,
@@ -1314,9 +1403,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_scheduled_durable_message_count{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_unrouted_message_count{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1324,7 +1413,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "messages durable scheduled",
+      "title": "messages unrouted",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1381,7 +1470,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 34
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 24,
@@ -1408,7 +1497,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(artemis_message_count{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_message_count{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
           "legendFormat": "{{ address }}",
           "refId": "A"
@@ -1477,192 +1566,6 @@
         "y": 35
       },
       "hiddenSeries": false,
-      "id": 13,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (address) (artemis_unrouted_message_count{broker=\"$broker\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "messages unrouted",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 42
-      },
-      "hiddenSeries": false,
-      "id": 18,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (address) (artemis_delivering_durable_message_count{broker=\"$broker\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "artemis_delivering_durable_message_count",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 43
-      },
-      "hiddenSeries": false,
       "id": 20,
       "legend": {
         "avg": false,
@@ -1687,9 +1590,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_messages_added{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_messages_added{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1753,7 +1656,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 50
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 26,
@@ -1780,9 +1683,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_messages_expired{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_messages_expired{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1844,8 +1747,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 58
+        "x": 12,
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 11,
@@ -1872,9 +1775,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_routed_message_count{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_routed_message_count{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -1926,7 +1829,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 51
       },
       "id": 4,
       "panels": [],
@@ -1953,7 +1856,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 67
+        "y": 52
       },
       "hiddenSeries": false,
       "id": 27,
@@ -1980,9 +1883,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_durable_persistent_size{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_durable_persistent_size{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -2047,7 +1950,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 67
+        "y": 52
       },
       "hiddenSeries": false,
       "id": 17,
@@ -2074,9 +1977,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_persistent_size{broker=\"$broker\"})",
+          "expr": "sum by (broker,address) (artemis_persistent_size{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -2141,7 +2044,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 76
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 21,
@@ -2168,9 +2071,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_delivering_durable_persistent_size{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_delivering_durable_persistent_size{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -2235,7 +2138,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 76
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 16,
@@ -2262,9 +2165,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_delivering_persistent_size{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_delivering_persistent_size{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -2329,7 +2232,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 85
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 22,
@@ -2356,9 +2259,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_scheduled_durable_persistent_size{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_scheduled_durable_persistent_size{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -2423,7 +2326,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 85
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 25,
@@ -2450,9 +2353,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (address) (artemis_scheduled_persistent_size{broker=\"$broker\"})",
+          "expr": "sum by (broker, address) (artemis_scheduled_persistent_size{broker=\"$broker\",address=~\"$address\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ address }}",
           "refId": "A"
         }
       ],
@@ -2555,11 +2458,37 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(artemis_consumer_count{namespace=\"$namespace\",broker=\"$broker\"},address)",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "address",
+        "options": [],
+        "query": "label_values(artemis_consumer_count{namespace=\"$namespace\",broker=\"$broker\"},address)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -2576,5 +2505,5 @@
   "timezone": "",
   "title": "AMQ Broker",
   "uid": "4vauoFdGk",
-  "version": 13
+  "version": 14
 }

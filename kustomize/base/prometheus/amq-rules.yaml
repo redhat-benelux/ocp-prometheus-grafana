@@ -13,7 +13,7 @@ groups:
         description: "DLQ has Messages  (Address {{ $labels.address }} project {{ $labels.namespace}} )"
 
     - alert: BrokerUnrouted
-      expr: (sum by(broker, namespace) (artemis_unrouted_message_count) - sum by(broker, namespace) (artemis_unrouted_message_count{address="activemq.notifications"})) > 1
+      expr: sum by(broker, namespace) (artemis_unrouted_message_count{address!="activemq.notifications"}) > 1
       for: 5m
       labels:
         severity: critical
